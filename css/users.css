@@ -1,0 +1,78 @@
+body{
+background-color: rgb(241, 241, 241);
+color: #2345ad;
+font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+/* font-family: cursive; */
+}
+h1{
+    text-align: center;
+    font-family: cursive;
+}
+h2{
+    /* font-family: cursive; */
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+.users{
+    display: flex;
+    height: 90vh;
+    margin-left: 13%;
+    margin-top: 5%;
+    /* font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
+ }
+.doctor{
+    margin-right: 5%;
+    width: 35vw;
+    border: 1px solid whitesmoke;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px 2px rgb(170, 170, 170);
+    text-align: center;
+}
+.patient{
+    margin-right: 5%;
+    width: 35vw;
+    border: 1px solid whitesmoke;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px 2px rgb(170, 170, 170);
+    text-align: center;
+}
+.community{
+    margin-right: 5%;
+    width: 35vw;
+    border: 1px solid whitesmoke;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px 2px rgb(170, 170, 170);
+    text-align: center;
+}
+p{
+    color: black;
+}
+.homepage{
+    width: 20%;
+    height: 40px;
+    border-radius: 10px;
+    color: white;
+    background-color:#2345ad;
+    border: 1px solid #2345ad;
+    margin-left: 45%;
+    margin-top: 5%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.homepage:hover{
+    background-color: green;
+    cursor: pointer;
+}
+.signup{
+    margin-top: 5%;
+    width: 50%;
+    height: 45px;
+    background-color: #2345ad; 
+    color: white;
+    border: 1px solid #2345ad;
+    border-radius: 10px;
+    font-weight: bold;
+}
+.signup:hover{
+    font-size: 15px;
+     cursor: pointer;
+}

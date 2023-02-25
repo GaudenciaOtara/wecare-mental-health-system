@@ -1,0 +1,120 @@
+body{
+    background-color: rgb(218, 218, 218);
+    background-image: url(../css/images/b1.jpeg);
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+   background-size: cover;
+ }
+ /* h1{
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 0px;
+    color:#2345ad;
+    margin-bottom: 0px;
+ } */
+h2{
+    margin-left: 30%;
+    font-size: 30px;
+    margin-bottom: 0px;
+    color:#2345ad;
+    font-family: 'Times New Roman', Times, serif;
+}
+.container{
+    display: flex;
+    height: 80vh;
+    margin-left: 30%;
+    margin-top: 5%;
+}
+.form{
+    height: 73vh;
+    width: 40%;
+    background-color: whitesmoke;
+}
+.color{
+    background-color: blue;
+    background-image: url(../css/images/p4.jpeg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+     height: 73vh;
+    width: 35%;
+}
+input{
+    height: 5vh;
+    width: 20vw;
+    margin-top: 2%;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-left: 10%;
+   color: #2345ad;
+}
+input[placeholder]{
+     font-family: Arial, Helvetica, sans-serif;
+     /* text-align: center; */
+     letter-spacing: 1px;
+     font-size: 13px;
+     color: #2345ad;
+
+}
+button{
+    height: 5.5vh;
+    width: 15vw;
+    margin-top: 2%;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-left: 15%;
+    background-color:#2345ad;
+    border: 1px solid blue;
+    color: whitesmoke;
+    margin-bottom: 0px;
+}
+button:hover{
+    background-color: green;
+    font-size:15px;
+    cursor: pointer;
+}
+
+p{
+    margin-left: 9%;
+    font-family: Arial, Helvetica, sans-serif;
+     
+}
+a{
+    text-decoration: none;
+    color:#2345ad;
+}
+a:hover{
+    color: green;
+}
+/* Eye open and close test */
+ 
+.password{
+    position: relative;
+    background-color: whitesmoke;
+}
+.password img{
+    border: 1px solid whitesmoke;
+    border-radius: 20px;
+    position: absolute;
+    top: 31%;
+    right:17%;
+    cursor: pointer;
+}
+label{
+    display: flex;
+    align-items: center;
+}
+.checkbox{
+    width: 2vw;
+    height: 15px;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+    margin-left: 8%;
+    flex: none;
+}
+.terms{
+    margin-left: 0px;
+}
