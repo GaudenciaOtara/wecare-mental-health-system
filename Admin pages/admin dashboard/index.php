@@ -3,10 +3,6 @@ session_start();
 // require '../Functions/connect.php';
 Require "../../Functions/connect.php";
 
-// $connection=mysqli_query($stmt,$conn);
-
-
-
 if (isset($_SESSION['user'])){
 
     // echo $_SESSION['user'];

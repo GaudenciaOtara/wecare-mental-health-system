@@ -4,6 +4,7 @@ session_start();
 // require '../Functions/connect.php';
 Require "../../Functions/connect.php";
 
+
 // $connection=mysqli_query($stmt,$conn);
 
 
@@ -50,6 +51,8 @@ if (isset($_SESSION['user'])){
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
     <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" href="assets/calender.css">
+
 </head>
 
 <body>
@@ -437,46 +440,60 @@ if (isset($_SESSION['user'])){
                                                                 <div class="sub-title">WeCare Event Chart</div>
                                                                 
                                                             
+                                                                <div class="calender">
+        <div class="buttons">
+            <button class="button">Add Event</button>  
+            <button class="button" id="yearbutton">Year</button> 
+            <button class="button">Month</button><br>
+        </div>
+        <div class="headers">
+            <input type="text" placeholder="Event Title"><br>
+        </div>
+         <div class="calendercontent">
+        <textarea name="" id="" cols="30" rows="10" placeholder="Event Description"></textarea>
+
+        <div class="calendar">
+<div class="calendar-header">
+    <span class="month-picker" id="month-picker">March</span>
+    <div class="year-picker">
+        <span class="year-change" id="prev-year">
+            <pre><</pre>
+        </span>
+        <span id="year">2022</span>
+        <span class="year-change" id="next-year">
+            <pre>></pre>
+        </span>
+    </div>
+</div>
+
+<div class="calendar-body">
+<div class="calendar-week-day">
+    <div>Sun</div>
+    <div>Mon</div>
+    <div>Tue</div>
+    <div>Wed</div>
+    <div>Thu</div>
+    <div>Fri</div>
+    <div>Sat</div>
+   
+</div>
+<div class="calendar-days"></div>
+</div>
+
+<div class="month-list"></div>
+</div>
+
+
+        
+         </div>
+         <button class="button" id="create">CREATE</button>
+<br>
+    </div>
+<br>
+
+<script src="assets/calender.js"></script>
                                                                  
-                                                                 
-                                                          
-                                                                        <button class="btn btn-primary waves-effect" data-type="inverse" data-animation-in="animated fadeIn" data-animation-out="animated fadeOut">Fade In</button>
-                                                                    </li>
-                                                                    <li>
-                                                                        <button class="btn btn-primary waves-effect" data-type="inverse" data-animation-in="animated fadeInLeft" data-animation-out="animated fadeOutLeft">Fade In Left</button>
-                                                                    </li>
-                                                                    <li>
-                                                                        <button class="btn btn-primary waves-effect" data-type="inverse" data-animation-in="animated fadeInRight" data-animation-out="animated fadeOutRight">Fade In Right</button>
-                                                                    </li>
-                                                                    <li>
-                                                                        <button class="btn btn-primary waves-effect" data-type="inverse" data-animation-in="animated fadeInUp" data-animation-out="animated fadeOutUp">Fade In Up</button>
-                                                                    </li>
-                                                                    <li>
-                                                                        <button class="btn btn-primary waves-effect" data-type="inverse" data-animation-in="animated fadeInDown" data-animation-out="animated fadeOutDown">Fade In Down</button>
-                                                                    </li>
-                                                                    <li>
-                                                                        <button class="btn btn-primary waves-effect" data-type="inverse" data-animation-in="animated bounceIn" data-animation-out="animated bounceOut">Bounce In</button>
-                                                                    </li>
-                                                                    <li>
-                                                                        <button class="btn btn-primary waves-effect" data-type="inverse" data-animation-in="animated bounceInLeft" data-animation-out="animated bounceOutLeft">Bounce In Left</button>
-                                                                    </li>
-                                                                    <li>
-                                                                        <button class="btn btn-primary waves-effect" data-type="inverse" data-animation-in="animated bounceInRight" data-animation-out="animated bounceOutRight">Bounce In Right</button>
-                                                                    </li>
-                                                                    <li>
-                                                                        <button class="btn btn-primary waves-effect" data-type="inverse" data-animation-in="animated rotateInDownRight" data-animation-out="animated rotateOutUpRight">Fall In
-                                                                            Right</button>
-                                                                    </li>
-                                                                    <li>
-                                                                        <button class="btn btn-primary waves-effect" data-type="inverse" data-animation-in="animated rotateIn" data-animation-out="animated rotateOut">Rotate In</button>
-                                                                    </li>
-                                                                    <li>
-                                                                        <button class="btn btn-primary waves-effect" data-type="inverse" data-animation-in="animated flipInX" data-animation-out="animated flipOutX">Flip In X</button>
-                                                                    </li>
-                                                                    <li>
-                                                                        <button class="btn btn-primary waves-effect" data-type="inverse" data-animation-in="animated flipInY" data-animation-out="animated flipOutY">Flip In Y</button>
-                                                                    </li>
-                                                                </ul>
+                                                           
                                                             </div>
                                                         </div>
                                                     </div>
