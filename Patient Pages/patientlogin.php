@@ -16,7 +16,7 @@ if (isset($_POST['submit'])){
     $_SESSION["user"] = $user_data;
     echo("
       <script>
-        window.location.replace('patientsignup.php');
+        window.location.replace('Patient Dashboard/index.php');
       </script>
     ");
   }

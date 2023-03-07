@@ -1,14 +1,26 @@
+
+<?php
+session_start();
+// require '../Functions/connect.php';
+Require "../../Functions/connect.php";
+
+// $connection=mysqli_query($stmt,$conn);
+
+
+if (isset($_SESSION['user'])){
+
+    $user_query = mysqli_query($conn,"select * from admin where email='{$_SESSION["user"]}'");
+    $user_data = mysqli_fetch_assoc($user_query);
+}
+ 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Material Able bootstrap admin template by Codedthemes</title>
-    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 10]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <title>WeCare</title>
+ 
     <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -17,8 +29,8 @@
     <meta name="keywords" content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
     <meta name="author" content="Codedthemes" />
     <!-- Favicon icon -->
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <!-- Google font-->
+
+    <!-- <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon"> -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
     <!-- Required Fremwork -->
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
@@ -30,12 +42,15 @@
     <link rel="stylesheet" type="text/css" href="assets/icon/icofont/css/icofont.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css" href="assets/icon/font-awesome/css/font-awesome.min.css">
+    <!-- Notification.css -->
+    <link rel="stylesheet" type="text/css" href="assets/pages/notification/notification.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/animate.css/css/animate.css">
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
     <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
 </head>
-
-<!--<body class="fix-menu dark-layout">-->
 
 <body>
     <!-- Pre-loader start -->
@@ -112,8 +127,9 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="index.html">
-                            <img class="img-fluid" src="assets/images/logo.png" alt="Theme-Logo" />
+                        <a href="index.php">
+                            <!-- <img class="img-fluid" src="assets/images/logo.png" alt="Theme-Logo" /> -->
+                            <h2>WECARE</h2>
                         </a>
                         <a class="mobile-options waves-effect waves-light">
                             <i class="ti-more"></i>
@@ -176,28 +192,24 @@
                             <li class="user-profile header-notification">
                                 <a href="#!" class="waves-effect waves-light">
                                     <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                                    <span>John Doe</span>
+                                    <span><?php echo $user_data['fullname'];
+                                            ?></span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
                                     <li class="waves-effect waves-light">
-                                        <a href="#!">
+                                        <a href="settings.php">
                                             <i class="ti-settings"></i> Settings
                                         </a>
                                     </li>
                                     <li class="waves-effect waves-light">
-                                        <a href="user-profile.html">
+                                        <a href="profile.php">
                                             <i class="ti-user"></i> Profile
                                         </a>
                                     </li>
                                     <li class="waves-effect waves-light">
-                                        <a href="email-inbox.html">
+                                        <a href="messages.php">
                                             <i class="ti-email"></i> My Messages
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <a href="auth-lock-screen.html">
-                                            <i class="ti-lock"></i> Lock Screen
                                         </a>
                                     </li>
                                     <li class="waves-effect waves-light">
@@ -221,14 +233,15 @@
                                 <div class="main-menu-header">
                                     <img class="img-80 img-radius" src="assets/images/avatar-4.jpg" alt="User-Profile-Image">
                                     <div class="user-details">
-                                        <span id="more-details">John Doe<i class="fa fa-caret-down"></i></span>
+                                        <span id="more-details"><?php echo $user_data['fullname'];
+                                            ?><i class="fa fa-caret-down"></i></span>
                                     </div>
                                 </div>
                                 <div class="main-menu-content">
                                     <ul>
                                         <li class="more-details">
-                                            <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
-                                            <a href="#!"><i class="ti-settings"></i>Settings</a>
+                                            <a href="profile.php"><i class="ti-user"></i>View Profile</a>
+                                            <a href="settings.php"><i class="ti-settings"></i>Settings</a>
                                             <a href="auth-normal-sign-in.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
                                         </li>
                                     </ul>
@@ -239,159 +252,138 @@
                                     <div class="form-group form-primary">
                                         <input type="text" name="footer-email" class="form-control">
                                         <span class="form-bar"></span>
-                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Search Friend</label>
+                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Search Dashboard</label>
                                     </div>
                                 </form>
                             </div>
                             <div class="pcoded-navigation-label">Navigation</div>
                             <ul class="pcoded-item pcoded-left-item">
-                                <li class="">
-                                    <a href="index.html" class="waves-effect waves-dark">
+                                <li class="active">
+                                    <a href="index.php" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                                         <span class="pcoded-mtext">Dashboard</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
                             </ul>
-                            <div class="pcoded-navigation-label">UI Element</div>
+                            <div class="pcoded-navigation-label">Information Page</div>
                             <ul class="pcoded-item pcoded-left-item">
-                                <li class="pcoded-hasmenu active pcoded-trigger">
+                                <li class="pcoded-hasmenu">
                                     <a href="javascript:void(0)" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>BC</b></span>
-                                        <span class="pcoded-mtext">Basic</span>
+                                        <span class="pcoded-mtext">Information Page</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
-                                            <a href="breadcrumb.html" class="waves-effect waves-dark">
+                                            <a href="addarticle.php" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext">Breadcrumbs</span>
+                                                <span class="pcoded-mtext">Add Article</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="button.html" class="waves-effect waves-dark">
+                                            <a href="removearticle.php" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext">Button</span>
+                                                <span class="pcoded-mtext">Remove Article</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class="">
-                                            <a href="accordion.html" class="waves-effect waves-dark">
+                                            <a href="updatearticle.php" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext">Accordion</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class="active ">
-                                            <a href="tabs.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext">Tabs</span>
+                                                <span class="pcoded-mtext">Update Article</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="color.html" class="waves-effect waves-dark">
+                                            <a href="publishedarticles.php" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext">Color</span>
+                                                <span class="pcoded-mtext">Published Articles</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="label-badge.html" class="waves-effect waves-dark">
+                                            <a href="submittedarticles.php" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext">Label Badge</span>
+                                                <span class="pcoded-mtext">Submitted Articles</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="tooltip.html" class="waves-effect waves-dark">
+                                            <a href="events.php" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext">Tooltip And Popover</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="typography.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext">Typography</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="notification.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext">Notifications</span>
+                                                <span class="pcoded-mtext">Calender and Events</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
                             </ul>
-                            <div class="pcoded-navigation-label">Forms</div>
+                            <div class="pcoded-navigation-label">The WeCare Community</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="">
-                                    <a href="form-elements-component.html" class="waves-effect waves-dark">
+                                    <a href="chats.php" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                        <span class="pcoded-mtext">Form</span>
+                                        <span class="pcoded-mtext">Chats and Videos</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
                             </ul>
-                            <div class="pcoded-navigation-label">Tables</div>
+                            <div class="pcoded-navigation-label">User Feedback</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="">
-                                    <a href="bs-basic-table.html" class="waves-effect waves-dark">
+                                    <a href="support.php" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-receipt"></i><b>B</b></span>
-                                        <span class="pcoded-mtext">Table</span>
+                                        <span class="pcoded-mtext">Support & Feedback</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
                             </ul>
-                            <div class="pcoded-navigation-label">Chart And Maps</div>
+                            <div class="pcoded-navigation-label">Chart And Stats</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="">
-                                    <a href="chart-morris.html" class="waves-effect waves-dark">
+                                    <a href="charts.php" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-bar-chart-alt"></i><b>C</b></span>
                                         <span class="pcoded-mtext">Charts</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
                                 <li class="">
-                                    <a href="map-google.html" class="waves-effect waves-dark">
+                                    <a href="traffic.php" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-map-alt"></i><b>M</b></span>
-                                        <span class="pcoded-mtext">Maps</span>
+                                        <span class="pcoded-mtext">Traffic Stats</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
                             </ul>
-                            <div class="pcoded-navigation-label">Pages</div>
+                            <div class="pcoded-navigation-label">User Pages</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="pcoded-hasmenu ">
                                     <a href="javascript:void(0)" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-id-badge"></i><b>A</b></span>
-                                        <span class="pcoded-mtext">Pages</span>
+                                        <span class="pcoded-mtext">Users</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class="">
-                                            <a href="auth-normal-sign-in.html" class="waves-effect waves-dark">
+                                            <a href="patient.php" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext">Login</span>
+                                                <span class="pcoded-mtext">Patient</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class="">
-                                            <a href="auth-sign-up.html" class="waves-effect waves-dark">
+                                            <a href="doctor.php" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext">Registration</span>
+                                                <span class="pcoded-mtext">Doctors</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class="">
-                                            <a href="sample-page.html" class="waves-effect waves-dark">
+                                            <a href="community.php" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-layout-sidebar-left"></i><b>S</b></span>
-                                                <span class="pcoded-mtext">Sample Page</span>
+                                                <span class="pcoded-mtext">Community</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
@@ -407,8 +399,8 @@
                                 <div class="row align-items-center">
                                     <div class="col-md-8">
                                         <div class="page-header-title">
-                                            <h5 class="m-b-10">Tabs</h5>
-                                            <p class="m-b-0">Lorem Ipsum is simply dummy text of the printing</p>
+                                            <h5 class="m-b-10">Calender and Events</h5>
+                                            <p class="m-b-0">Check upcoming events from WeCare!</p>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -416,9 +408,9 @@
                                             <li class="breadcrumb-item">
                                                 <a href="index.html"> <i class="fa fa-home"></i> </a>
                                             </li>
-                                            <li class="breadcrumb-item"><a href="#!">Basic Components</a>
+                                            <li class="breadcrumb-item"><a href="publishedarticles.php">Information Page</a>
                                             </li>
-                                            <li class="breadcrumb-item"><a href="#!">Tabs</a>
+                                            <li class="breadcrumb-item"><a href="events.php">Calender and Events</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -429,206 +421,126 @@
                         <div class="pcoded-inner-content">
                             <div class="main-body">
                                 <div class="page-wrapper">
-                                    <!-- Page body start -->
+
+                                    <!-- Page-body start -->
                                     <div class="page-body">
+                                        <!-- Row start -->
                                         <div class="row">
-                                            <div class="col-sm-12">
-                                                <!-- Bootstrap tab card start -->
+                                            <!-- Multiple Open Accordion start -->
+                                            <div class="col-lg-6">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5>Bootstrap Tab</h5>
-                                                        <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
+                                                        <h5 class="card-header-text">All Close Accordion</h5>
                                                     </div>
-                                                    <div class="card-block">
-                                                        <!-- Row start -->
-                                                        <div class="row">
-                                                            <div class="col-lg-12 col-xl-6">
-                                                                <div class="sub-title">Default</div>
-                                                                <!-- Nav tabs -->
-                                                                <ul class="nav nav-tabs  tabs" role="tablist">
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link active" data-toggle="tab" href="#home1" role="tab">Home</a>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link" data-toggle="tab" href="#profile1" role="tab">Profile</a>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link" data-toggle="tab" href="#messages1" role="tab">Messages</a>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link" data-toggle="tab" href="#settings1" role="tab">Settings</a>
-                                                                    </li>
-                                                                </ul>
-                                                                <!-- Tab panes -->
-                                                                <div class="tab-content tabs card-block">
-                                                                    <div class="tab-pane active" id="home1" role="tabpanel">
-                                                                        <p class="m-0">1. This is Photoshop's version of Lorem IpThis is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
-                                                                            bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-                                                                            mas Cum sociis natoque penatibus et magnis dis.....</p>
-                                                                    </div>
-                                                                    <div class="tab-pane" id="profile1" role="tabpanel">
-                                                                        <p class="m-0">2.Cras consequat in enim ut efficitur. Nulla posuere elit quis auctor interdum praesent sit amet nulla vel enim amet. Donec convallis tellus neque, et imperdiet
-                                                                            felis amet.</p>
-                                                                    </div>
-                                                                    <div class="tab-pane" id="messages1" role="tabpanel">
-                                                                        <p class="m-0">3. This is Photoshop's version of Lorem IpThis is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
-                                                                            bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-                                                                            mas Cum sociis natoque penatibus et magnis dis.....</p>
-                                                                    </div>
-                                                                    <div class="tab-pane" id="settings1" role="tabpanel">
-                                                                        <p class="m-0">4.Cras consequat in enim ut efficitur. Nulla posuere elit quis auctor interdum praesent sit amet nulla vel enim amet. Donec convallis tellus neque, et imperdiet
-                                                                            felis amet.</p>
-                                                                    </div>
-                                                                </div>
+                                                    <div class="card-block accordion-block">
+                                                        <div id="accordion" role="tablist" aria-multiselectable="true">
+                                                            <div class="accordion-panel">
+                                                                <div class="accordion-heading" role="tab" id="headingOne">
+                                                                    <h3 class="card-title accordion-title">
+                                                                        <a class="accordion-msg waves-effect waves-dark" data-toggle="collapse"
+                                                                        data-parent="#accordion" href="#collapseOne"
+                                                                        aria-expanded="true" aria-controls="collapseOne">
+                                                                        Lorem Message 1
+                                                                    </a>
+                                                                </h3>
                                                             </div>
-                                                            <div class="col-lg-12 col-xl-6">
-                                                                <div class="sub-title">Below Tabs</div>
-                                                                <!-- Tab panes -->
-                                                                <div class="tab-content tabs card-block">
-                                                                    <div class="tab-pane active" id="home2" role="tabpanel">
-                                                                        <p class="m-0">1. This is Photoshop's version of Lorem IpThis is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
-                                                                            bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-                                                                            mas Cum sociis natoque penatibus et magnis dis.....</p>
-                                                                    </div>
-                                                                    <div class="tab-pane" id="profile2" role="tabpanel">
-                                                                        <p class="m-0">2.Cras consequat in enim ut efficitur. Nulla posuere elit quis auctor interdum praesent sit amet nulla vel enim amet. Donec convallis tellus neque, et imperdiet
-                                                                            felis amet.</p>
-                                                                    </div>
-                                                                    <div class="tab-pane" id="messages2" role="tabpanel">
-                                                                        <p class="m-0">3. This is Photoshop's version of Lorem IpThis is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
-                                                                            bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-                                                                            mas Cum sociis natoque penatibus et magnis dis.....</p>
-                                                                    </div>
-                                                                    <div class="tab-pane" id="settings2" role="tabpanel">
-                                                                        <p class="m-0">4.Cras consequat in enim ut efficitur. Nulla posuere elit quis auctor interdum praesent sit amet nulla vel enim amet. Donec convallis tellus neque, et imperdiet
-                                                                            felis amet.</p>
-                                                                    </div>
+                                                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                                                <div class="accordion-content accordion-desc">
+                                                                    <p>
+                                                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
+                                                                        survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+                                                                        sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                                                    </p>
                                                                 </div>
-                                                                <!-- Nav tabs -->
-                                                                <ul class="nav nav-tabs tab-below tabs" role="tablist">
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link active" data-toggle="tab" href="#home2" role="tab">Home</a>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link" data-toggle="tab" href="#profile2" role="tab">Profile</a>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link" data-toggle="tab" href="#messages2" role="tab">Messages</a>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link" data-toggle="tab" href="#settings2" role="tab">Settings</a>
-                                                                    </li>
-                                                                </ul>
                                                             </div>
                                                         </div>
-                                                        <!-- Row end -->
+                                                        <div class="accordion-panel">
+                                                            <div class="accordion-heading" role="tab" id="headingTwo">
+                                                                <h3 class="card-title accordion-title">
+                                                                    <a class="accordion-msg waves-effect waves-dark" data-toggle="collapse"
+                                                                    data-parent="#accordion" href="#collapseTwo"
+                                                                    aria-expanded="false"
+                                                                    aria-controls="collapseTwo">
+                                                                    Lorem Message 2
+                                                                </a>
+                                                            </h3>
+                                                        </div>
+                                                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                                            <div class="accordion-content accordion-desc">
+                                                                <p>
+                                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
+                                                                    survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+                                                                    sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="accordion-panel">
+                                                        <div class=" accordion-heading" role="tab" id="headingThree">
+                                                            <h3 class="card-title accordion-title">
+                                                                <a class="accordion-msg waves-effect waves-dark" data-toggle="collapse"
+                                                                data-parent="#accordion" href="#collapseThree"
+                                                                aria-expanded="false"
+                                                                aria-controls="collapseThree">
+                                                                Lorem Message 3
+                                                            </a>
+                                                        </h3>
+                                                    </div>
+                                                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                                        <div class="accordion-content accordion-desc">
+                                                            <p>
+                                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
+                                                                survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+                                                                sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <!-- Bootstrap tab card end -->
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <!-- Material tab card start -->
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <h5>Material Tab</h5>
-                                                    </div>
-                                                    <div class="card-block">
-                                                        <!-- Row start -->
-                                                        <div class="row m-b-30">
-                                                            <div class="col-lg-12 col-xl-6">
-                                                                <div class="sub-title">Default</div>
-                                                                <!-- Nav tabs -->
-                                                                <ul class="nav nav-tabs md-tabs" role="tablist">
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link active" data-toggle="tab" href="#home3" role="tab">Home</a>
-                                                                        <div class="slide"></div>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link" data-toggle="tab" href="#profile3" role="tab">Profile</a>
-                                                                        <div class="slide"></div>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link" data-toggle="tab" href="#messages3" role="tab">Messages</a>
-                                                                        <div class="slide"></div>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link" data-toggle="tab" href="#settings3" role="tab">Settings</a>
-                                                                        <div class="slide"></div>
-                                                                    </li>
-                                                                </ul>
-                                                                <!-- Tab panes -->
-                                                                <div class="tab-content card-block">
-                                                                    <div class="tab-pane active" id="home3" role="tabpanel">
-                                                                        <p class="m-0">1. This is Photoshop's version of Lorem IpThis is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
-                                                                            bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-                                                                            mas Cum sociis natoque penatibus et magnis dis.....</p>
-                                                                    </div>
-                                                                    <div class="tab-pane" id="profile3" role="tabpanel">
-                                                                        <p class="m-0">2.Cras consequat in enim ut efficitur. Nulla posuere elit quis auctor interdum praesent sit amet nulla vel enim amet. Donec convallis tellus neque, et imperdiet
-                                                                            felis amet.</p>
-                                                                    </div>
-                                                                    <div class="tab-pane" id="messages3" role="tabpanel">
-                                                                        <p class="m-0">3. This is Photoshop's version of Lorem IpThis is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
-                                                                            bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-                                                                            mas Cum sociis natoque penatibus et magnis dis.....</p>
-                                                                    </div>
-                                                                    <div class="tab-pane" id="settings3" role="tabpanel">
-                                                                        <p class="m-0">4.Cras consequat in enim ut efficitur. Nulla posuere elit quis auctor interdum praesent sit amet nulla vel enim amet. Donec convallis tellus neque, et imperdiet
-                                                                            felis amet.</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-12 col-xl-6">
-                                                                <div class="sub-title">Below Tab</div>
-                                                                <!-- Tab panes -->
-                                                                <div class="tab-content card-block">
-                                                                    <div class="tab-pane active" id="home4" role="tabpanel">
-                                                                        <p class="m-0">1. This is Photoshop's version of Lorem IpThis is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
-                                                                            bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-                                                                            mas Cum sociis natoque penatibus et magnis dis.....</p>
-                                                                    </div>
-                                                                    <div class="tab-pane" id="profile4" role="tabpanel">
-                                                                        <p class="m-0">2.Cras consequat in enim ut efficitur. Nulla posuere elit quis auctor interdum praesent sit amet nulla vel enim amet. Donec convallis tellus neque, et imperdiet
-                                                                            felis amet.</p>
-                                                                    </div>
-                                                                    <div class="tab-pane" id="messages4" role="tabpanel">
-                                                                        <p class="m-0">3. This is Photoshop's version of Lorem IpThis is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
-                                                                            bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-                                                                            mas Cum sociis natoque penatibus et magnis dis.....</p>
-                                                                    </div>
-                                                                    <div class="tab-pane" id="settings4" role="tabpanel">
-                                                                        <p class="m-0">4.Cras consequat in enim ut efficitur. Nulla posuere elit quis auctor interdum praesent sit amet nulla vel enim amet. Donec convallis tellus neque, et imperdiet
-                                                                            felis amet.</p>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- Nav tabs -->
-                                                                <ul class="nav nav-tabs md-tabs" role="tablist">
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link active" data-toggle="tab" href="#home4" role="tab">Home</a>
-                                                                        <div class="slide"></div>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link" data-toggle="tab" href="#profile4" role="tab">Profile</a>
-                                                                        <div class="slide"></div>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link" data-toggle="tab" href="#messages4" role="tab">Messages</a>
-                                                                        <div class="slide"></div>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link" data-toggle="tab" href="#settings4" role="tab">Settings</a>
-                                                                        <div class="slide"></div>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- Row end -->
-                                                    </div>
+                                    </div>
+                                </div>
+                                <!-- Multiple Open Accordion ends -->
+                                <!-- Single Open Accordion start -->
+                                <div class="col-lg-6">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="card-header-text">Single Open Accordion</h5>
+                                        </div>
+                                        <div class="card-block accordion-block">
+                                            <div class="accordion-box" id="single-open">
+                                                <a class="accordion-msg waves-effect waves-dark">Lorem Message 1</a>
+                                                <div class="accordion-desc">
+                                                    <p>
+                                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
+                                                        survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+                                                        Lorem Ipsum passages, and more .
+                                                    </p>
                                                 </div>
-                                                <!-- Material tab card end -->
+                                                <a class="accordion-msg waves-effect waves-dark">Lorem Message 2</a>
+                                                <div class="accordion-desc">
+                                                    <p>
+                                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
+                                                        survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+                                                        Lorem Ipsum passages, and more .
+                                                    </p>
+                                                </div>
+                                                <a class="accordion-msg waves-effect waves-dark">Lorem Message 3</a>
+                                                <div class="accordion-desc">
+                                                    <p>
+                                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
+                                                        survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+                                                        Lorem Ipsum passages, and more .
+                                                    </p>
+                                                </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single Open Accordion ends -->
+                                                <!-- Notification card end -->
+                                            </div>
+                                            <!-- Bootstrap modal end -->
                                         </div>
                                     </div>
                                     <!-- Page body end -->
@@ -646,52 +558,13 @@
         </div>
     </div>
 
-
-
-    <!-- Warning Section Starts -->
-    <!-- Older IE warning message -->
-    <!--[if lt IE 10]>
-<div class="ie-warning">
-    <h1>Warning!!</h1>
-    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
-    <div class="iew-container">
-        <ul class="iew-download">
-            <li>
-                <a href="http://www.google.com/chrome/">
-                    <img src="assets/images/browser/chrome.png" alt="Chrome">
-                    <div>Chrome</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.mozilla.org/en-US/firefox/new/">
-                    <img src="assets/images/browser/firefox.png" alt="Firefox">
-                    <div>Firefox</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://www.opera.com">
-                    <img src="assets/images/browser/opera.png" alt="Opera">
-                    <div>Opera</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.apple.com/safari/">
-                    <img src="assets/images/browser/safari.png" alt="Safari">
-                    <div>Safari</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                    <img src="assets/images/browser/ie.png" alt="">
-                    <div>IE (9 & above)</div>
-                </a>
-            </li>
-        </ul>
+     <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>WeCare</span></strong>. All Rights Reserved
     </div>
-    <p>Sorry for the inconvenience!</p>
-</div>
-<![endif]-->
-    <!-- Warning Section Ends -->
+     
+  </footer><!-- End Footer -->
     <!-- Required Jquery -->
     <script type="text/javascript" src="assets/js/jquery/jquery.min.js "></script>
     <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js "></script>
@@ -701,11 +574,15 @@
     <script src="assets/pages/waves/js/waves.min.js"></script>
     <!-- jquery slimscroll js -->
     <script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <!-- notification js -->
+    <script type="text/javascript" src="assets/js/bootstrap-growl.min.js"></script>
+    <!-- <script type="text/javascript" src="assets/pages/notification/notification.js"></script> -->
     <script src="assets/js/pcoded.min.js"></script>
-    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="assets/js/vertical/vertical-layout.min.js"></script>
+    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- Custom js -->
     <script type="text/javascript" src="assets/js/script.js"></script>
+
 </body>
 
 </html>

@@ -1,3 +1,7 @@
+<?php
+include "./assets/checksession.php";
+session_check();
+?>
 <!DOCTYPE html>
 <html lang="en">
 

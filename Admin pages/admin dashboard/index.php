@@ -2,8 +2,17 @@
 session_start();
 // require '../Functions/connect.php';
 Require "../../Functions/connect.php";
-$stmt= 'SELECT * FROM admin';
+
 // $connection=mysqli_query($stmt,$conn);
+
+
+
+if (isset($_SESSION['user'])){
+
+    // echo $_SESSION['user'];
+    $user_query = mysqli_query($conn,"select * from admin where email='{$_SESSION["user"]}'");
+    $user_data = mysqli_fetch_assoc($user_query);
+
  
 ?>
 
@@ -177,7 +186,7 @@ $stmt= 'SELECT * FROM admin';
                             <li class="user-profile header-notification">
                                 <a href="#!" class="waves-effect waves-light">
                                     <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                                    <span>John Doe</span>
+                                    <span> </span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
@@ -217,7 +226,8 @@ $stmt= 'SELECT * FROM admin';
                                 <div class="main-menu-header">
                                     <img class="img-80 img-radius" src="assets/images/avatar-4.jpg" alt="User-Profile-Image">
                                     <div class="user-details">
-                                        <span id="more-details">John Doe<i class="fa fa-caret-down"></i></span>
+                                        <span id="more-details"><?php echo $user_data['fullname'];
+                                            ?> </p><i class="fa fa-caret-down"></i></span>
                                     </div>
                                 </div>
                                 <div class="main-menu-content">
@@ -383,7 +393,8 @@ $stmt= 'SELECT * FROM admin';
                                     <div class="col-md-8">
                                         <div class="page-header-title">
                                             <h5 class="m-b-10">Dashboard</h5>
-                                            <p class="m-b-0">Welcome <?php echo $fullname;  ?> </p>
+                                            <p class="m-b-0">Welcome <?php echo $user_data['fullname'];
+                                            ?> </p>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -638,11 +649,12 @@ $stmt= 'SELECT * FROM admin';
                                                         <div class="row">
                                                             <!-- <div class="col-xl-3 col-md-6"> -->
                                                                  <h5>WeCare is Proud Of You!</h5>
-                                                                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima dolore voluptates, 
-                                                                    odio architecto corporis ab debitis 
-                                                                    nostrum tenetur, sunt suscipit quo sequi magni asperiores illum deleniti
-                                                                     quaerat consequatur veniam inventore.
-                                                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.  
+                                                                 <p>
+                                                                 It is not how much you do but how much love you put into doing it that matters. Being able to be your 
+                                                                 true self with WeCare is very important to us. We are proud of you for being part of our community and
+                                                                 serving others! Being your true self while doing that which matters to the community is your 
+                                                                 greatest strength. 
+                                                                    
                                                                 </p>
                                                                      <img src="./assets/images/comm7.jpeg" alt="" width="80%">
                                                             <!-- </div> -->
@@ -701,3 +713,12 @@ $stmt= 'SELECT * FROM admin';
 </body>
 
 </html>
+<?php
+    }
+    else {
+        echo "<script>
+                location.replace('../adminlogin.php');
+            </script>";
+    }
+ 
+ ?>

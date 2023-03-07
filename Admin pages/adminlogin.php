@@ -12,7 +12,7 @@ if (isset($_POST['submit'])){
   if(empty($user_data)){
     echo "user not found";
   }else{
-    $_SESSION["user"] = $user_data;
+    $_SESSION["user"] = $user_data['email'];
     echo("
       <script>
         window.location.replace('./admin dashboard/index.php');

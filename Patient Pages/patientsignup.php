@@ -7,6 +7,9 @@ if (isset($_POST['submit'])){
   $username=$_POST['username'];
   $phonenumber=$_POST['phonenumber'];
   $password=$_POST['password'];
+  $firstname = $_POST['firstname'];
+  $lastname = $_POST['lastname'];
+  $address= $_POST['address'];
   $confirmpassword=$_POST['confirmpassword'];
   $terms=$_POST['terms'];
 
@@ -18,9 +21,9 @@ if (isset($_POST['submit'])){
   }
   else{
       // $SELECT= "SELECT email from test Where email = ? Limit 1";
-      $statement= $conn->prepare("Insert Into patient(email,username,phonenumber,password,confirmpassword,terms) 
-      values(?,?,?,?,?,?)");
-      $statement->bind_param("ssisss",$email,$username,$phonenumber,$password,$confirmpassword,$terms);
+      $statement= $conn->prepare("Insert Into patient(email,username,phonenumber,password,confirmpassword,terms,firstname, lastname ,adress) 
+      values(?,?,?,?,?,?,?,?,?)");
+      $statement->bind_param("ssissssss",$email,$username,$phonenumber,$password,$confirmpassword,$terms ,$firstname , $lastname ,$address);
       $statement->execute();
       // echo"Succesfully Registered!";
       $statement->close();
@@ -56,6 +59,9 @@ if (isset($_POST['submit'])){
     <h2>Sign Up</h2>
       <input type="email" placeholder="Email" required name="email"><br>
       <input type="text" placeholder="Username" required name="username"><br>
+      <input type="text" placeholder="First Name" required name="firstname"><br>
+      <input type="text" placeholder="Last Name" required name="lastname"><br>
+      <input type="text" placeholder="Address" required name="address"><br>
        <!-- <input type="text" placeholder="National ID" required><br> -->
       <input type="tel" placeholder="Phone Number" required name="phonenumber"><br>
 
