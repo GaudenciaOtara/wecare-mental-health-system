@@ -9,31 +9,42 @@ if (isset($_POST['submit'])){
   $password=$_POST['password'];
   $confirmpassword=$_POST['confirmpassword'];
   $terms=$_POST['terms'];
+  $filename = $_FILES["image"]["name"];
 
-// $SELECT= "SELECT email from test Where email = ? Limit 1";
-// $INSERT= "INSERT Into test "
-  
-  if ($conn->connect_error){
-      die('Connection Failed!' .$conn->connect_error);
-  }
-  else{
-      $SELECT= "SELECT email from test Where email = ? Limit 1";
-      $statement= $conn->prepare("Insert Into admin(email,fullname,nationalid,phonenumber,password,confirmpassword,terms) 
-      values(?,?,?,?,?,?,?)");
-      $statement->bind_param("ssiisss",$email,$username,$nationalid,$phonenumber,$password,$confirmpassword,$terms);
-      $statement->execute();
-      // echo"Succesfully Registered!";
-      $statement->close();
-      $conn->close();
-      // echo '.$email';
-    echo "
-    <script>
-      location.replace('adminlogin.php');
-    </script>
-    ";
+  $tempname = $_FILES["image"]["tmp_name"];  
 
-  }
+  $folder = "image/".$filename;  
+  if (move_uploaded_file($tempname, $folder)) {
+
+    $msg = "Image uploaded successfully";
+    
+    $SELECT= "SELECT email from test Where email = ? Limit 1";
+    $statement= $conn->prepare("Insert
+     Into admin(image,email,fullname,
+     nationalid,phonenumber,password) 
+    values(?,?,?,?,?,?)");
+    $statement->bind_param("sssiis",$filename,
+    $email,$username,$nationalid,$phonenumber,$password);
+    $statement->execute();
+    // echo"Succesfully Registered!";
+    $statement->close();
+    $conn->close();
+    // echo '.$email';
+  echo "
+  <script>
+    location.replace('adminlogin.php');
+  </script>
+  ";
+
+
+}else{
+
+    $msg = "Failed to upload image";
+
 }
+
+}
+
 ?>
 <!DOCTYPE html>
  <html lang="en">
@@ -50,10 +61,13 @@ if (isset($_POST['submit'])){
     <div class="form">
     <form 
     action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"
-    method="POST">
+    method="POST"
+    enctype="multipart/form-data"
+    >
     <h2>Sign Up</h2>
       <input type="email" placeholder="Email" required name="email"><br>
       <input type="text" placeholder="Full Name" required name="fullname"><br>
+      <input type="file" placeholder="profile image" required name="image"><br>
       <input type="number" placeholder="National ID" required name="nationalid"><br>
       <input type="tel" placeholder="Phone Number" required name="phonenumber"><br>
 
