@@ -11,7 +11,7 @@ if (isset($_SESSION['user'])){
 
     $user_query = mysqli_query($conn,"select * from admin where email='{$_SESSION["user"]}'");
     $user_data = mysqli_fetch_assoc($user_query);
-    $folder_path = "./assets";
+    
 }
  
 ?>
@@ -520,7 +520,7 @@ if (isset($_SESSION['user'])){
                                                                         fileInput.type = "file";
                                                                         fileInput.id = "image";
                                                                         fileInput.style.display = "none";
-                                                                        fileInput.name = "file"; // Set the name attribute to "file"
+                                                                        fileInput.name = "image"; // Set the name attribute to "file"
                                                                         
                                                                         // Append the file input element to the div element
                                                                         document.getElementById("file-upload").appendChild(fileInput);
@@ -534,29 +534,30 @@ if (isset($_SESSION['user'])){
                                                             <div class="form-group form-default">
                                                                 <input type="text" name="fullname" class="form-control">
                                                                 <span class="form-bar"></span>
-                                                                <label class="float-label"><?php echo $user_data['fullname'];?></label>
+                                                                <label class="float-label"><?php echo "Name : ".$user_data['fullname'];?></label>
                                                             </div>
                                                             <div class="form-group form-default">
                                                                 <input type="text" name="email" class="form-control">
                                                                 <span class="form-bar"></span>
-                                                                <label class="float-label"><?php echo $user_data['email'];?></label>
+                                                                <label class="float-label"><?php echo "Email :".$user_data['email'];?></label>
                                                             </div>
                                                             
                                                             <div class="form-group form-default">
                                                                 <input type="number" name="phone" class="form-control" >
                                                                 <span class="form-bar"></span>
-                                                                <label class="float-label"><?php echo $user_data['phonenumber'];?></label>
+                                                                <label class="float-label"><?php echo "phone : ".$user_data['phonenumber'];?></label>
                                                             <div class="form-group form-default">
-                                                                <input type="number" name="nationalid" class="form-control" value="<?php echo $user_data['nationalid'];?>" style="display:none">
+                                                                <input type="number" name="nationalid" class="form-control">
                                                                 <span class="form-bar"></span>
-                                                                <label class="float-label"><?php echo $user_data['nationalid'];?></label>
+                                                                <label class="float-label"><?php echo "id : ".$user_data['nationalid'];?></label>
                                                             </div>
-                                                        
-                                                            <button class="btn btn-primary waves-effect" data-type="inverse" data-animation-in="animated fadeIn" 
+                                                        <br>
+                                                            
+                                                        <button class="btn btn-primary waves-effect" data-type="inverse" data-animation-in="animated fadeIn" 
                                                             style="margin-left:25%; margin-top:0px;" 
                                                             data-animation-out="animated fadeOut" name="update-profile">Update Profile</button>
-                                                            
                                                         </form>
+                                                            
                                                         <!-- <script>
                                                             document.querySelector('#update-profile').addEventListener('submit', function(event) {
                                                                 // Perform form validation
@@ -585,42 +586,102 @@ if (isset($_SESSION['user'])){
                                                         <?php
                                                         
 
-                                                            if(isset($_POST["update-profile"]) &&
-                                                             $_POST['fullname'] == '' &&
-                                                             $_POST['email'] == '' &&
-                                                             $_POST['phone'] == '' &&
+                                                            // if(isset($_POST["update-profile"]) &&
+                                                            //  $_POST['fullname'] == '' &&
+                                                            //  $_POST['email'] == '' &&
+                                                            //  $_POST['phone'] == '' &&                                                            
+                                                            //  $_POST['nationalid'] == '' 
+                                                            //  ){   
+                                                                
+                                                            //     echo "
+                                                            //     <script>
+                                                            //     var label = document.getElementById('message');
+                                                            //     label.style.color = 'red';
+                                                            //     label.style.fontSize = '24px';
+                                                            //     label.textContent = 'Nothing has been updated 😂';                                                        
                                                             
-                                                             $_POST['nationalid'] == '' 
-                                                             ){                                                
-                                                                echo "
-                                                                <script>
-                                                                var label = document.getElementById('message');
-                                                                label.style.color = 'red';
-                                                                label.style.fontSize = '24px';
-                                                                label.textContent = 'Nothing has been updated 😂';
-                                                              
-                                                                    var form = document.querySelector('#update-profile');
-                                                                    form.addEventListener('submit', function(event) {
-                                                                        event.preventDefault();                                                                      
-                                                                    });
-                                                                </script>                                                                
-                                                                ";                                                       
-                                                            }
-                                                            elseif (isset($_POST) &&  !empty($_POST['fullname'])) {
-                                                                $name = $_POST['fullname'];
-                                                                $email =  $_POST['email'];
-                                                                $statement= $conn->prepare("Insert
-                                                                Into admin(image,email,fullname,
-                                                                nationalid,phonenumber,password) 
-                                                                values(?,?,?,?,?,?)");
-                                                                $statement->bind_param("sssiis",$filename,
-                                                                $email,$username,$nationalid,$phonenumber,$password);
-                                                                $statement->execute();
-                                                                // echo"Succesfully Registered!";
-                                                                $statement->close();
-                                                                // $_POST['phone'] == '' &&
-                                                                // $_POST['image'] == '' &&
-                                                                // $_POST['nationalid'] == '' 
+                                                            //     var form = document.querySelector('#update-profile');
+                                                            //         form.addEventListener('submit', function(event) {
+                                                            //         event.preventDefault(); });
+                                                            //     </script>                                                                
+                                                            //     ";                                                       
+                                                            // }
+                                                            if (isset($_POST["update-profile"]) ) {
+                                                                
+                                                                if ($_POST['fullname'] == '') {
+                                                                    $name = $user_data['fullname'];
+                                                                }else if(isset($_POST['update-profile']) && $_POST['fullname'] != '' ){
+                                                                    $name = $_POST['fullname'];
+                                                                }
+                                                                if($_POST['email']){
+                                                                    $email = $user_data['email'];
+                                                                }else {
+                                                                    $email = $_POST['email'] ;      }
+                                                                if($_POST['nationalid']==''){
+                                                                    $id = $user_data['nationalid'];
+                                                                }else {
+                                                                    $id = $_POST['nationalid'];
+                                                                }
+                                                                if($_POST['phone']==''){
+                                                                    $phone = $user_data['phonenumber'];
+                                                                }else {
+                                                                    $phone = $_POST['phone'];
+                                                                }
+                                                                $filename = $_FILES["image"]["name"];
+                                                                $tempname = $_FILES["image"]["tmp_name"];                                                          
+                                                                $folder = "../image/".$filename;
+                                                            // upload with image
+                                                            echo "poasted";
+                                                                if (move_uploaded_file($tempname, $folder)) {
+                                                                    $statement="                                                                
+                                                                        UPDATE admin SET email='$email',
+                                                                                    fullname='$name',
+                                                                                    nationalid='$id'
+                                                                                    phonenumber='$phone',
+                                                                                    image='$folder',
+                                                                                    where email='{$_SESSION["user"]}'
+                                                                    ";
+                                                                    $user_query = mysqli_query($conn,$statement);
+                                                                    if ($user_query) {
+                                                                        echo "
+                                                                            <script>
+                                                                                var label = document.getElementById('message');
+                                                                                label.style.color = 'green';
+                                                                                label.style.fontSize = '24px';
+                                                                                label.textContent = 'Successfully updated😎';                                                        
+                                                                            
+                                                                                var form = document.querySelector('#update-profile');
+                                                                                    form.addEventListener('submit', function(event) {
+                                                                                    event.preventDefault(); });
+                                                                            </script>                                                                
+                                                                            ";                                                       
+                                                                }else {
+                                                                    $statement="                                                                
+                                                                        UPDATE admin SET email='$email',
+                                                                                    fullname='$name',
+                                                                                    nationalid='$id'
+                                                                                    phonenumber='$phone',                                                                                    
+                                                                                    where email='{$_SESSION["user"]}'
+                                                                    ";
+                                                                    $user_query = mysqli_query($conn,$statement);
+                                                                    if (mysqli_query_num_rows($user_query) > 0) {
+                                                                        echo "
+                                                                            <script>
+                                                                                var label = document.getElementById('message');
+                                                                                label.style.color = 'green';
+                                                                                label.style.fontSize = '24px';
+                                                                                label.textContent = 'Successfully updated😎';                                                        
+                                                                            
+                                                                                var form = document.querySelector('#update-profile');
+                                                                                    form.addEventListener('submit', function(event) {
+                                                                                    event.preventDefault(); });
+                                                                            </script>                                                                
+                                                                            ";                                                       
+                                                                    }
+
+                                                                }
+                                                            }  
+                                                                
                                                             }
 
                                                         ?>
