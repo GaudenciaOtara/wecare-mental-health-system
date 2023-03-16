@@ -11,6 +11,7 @@ if (isset($_SESSION['user'])){
 
     $user_query = mysqli_query($conn,"select * from admin where email='{$_SESSION["user"]}'");
     $user_data = mysqli_fetch_assoc($user_query);
+    
 }
  
 ?>
@@ -48,7 +49,57 @@ if (isset($_SESSION['user'])){
     <link rel="stylesheet" type="text/css" href="assets/css/animate.css/css/animate.css">
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <style>
+                    
 
+            .card-image {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            }
+
+            .card-image img {
+            display: block;
+            margin: 0 auto;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            }
+
+            .card-image .icon {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background-color: #fff;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            }
+
+            .card-image .icon i {
+            color: #007bff;
+            }
+
+            .card-info {
+            padding: 20px;
+            text-align: center;
+            }
+
+            .card-info h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #333;
+            }
+
+    </style>
     <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
 </head>
 
@@ -445,48 +496,201 @@ if (isset($_SESSION['user'])){
                                             <div class="col-md-6">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5>Profile Information</h5>
+                                                        <h5 id="message">View / Edit Profile Information</h5>
                                                         <!--<span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>-->
                                                     </div>
                                                     <div class="card-block">
-                                                        <form class="form-material">
-                                                        <div class="form-group form-default">
-                                                                <input type="text" name="footer-email" class="form-control" disabled>
-                                                                <span class="form-bar"></span>
-                                                                <label class="float-label"><?php echo $user_data['fullname'];
-                                            ?></label>
+                                                        <form class="form-material" method= "POST" 
+                                                        action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"
+                                                        enctype="multipart/form-data"
+                                                        id="update-profile"
+                                                        >
+                                                        <div class="card">
+                                                            
+                                                            <div class="card-image">
+                                                                <img src="<?php echo "../image/".$user_data['image'] ?>"
+                                                                 alt="Profile Image" id="profile-image">
+                                                                 
+                                                                <div class="icon"id="file-upload">                                                            
+                                                                    <i class="fa fa-camera" id="upload-icon"></i>
+                                                                </div>
+                                                                <script>
+                                                                        // Create a file input element with a name attribute
+                                                                        var fileInput = document.createElement("input");
+                                                                        fileInput.type = "file";
+                                                                        fileInput.id = "image";
+                                                                        fileInput.style.display = "none";
+                                                                        fileInput.name = "image"; // Set the name attribute to "file"
+                                                                        
+                                                                        // Append the file input element to the div element
+                                                                        document.getElementById("file-upload").appendChild(fileInput);
+                                                                        
+                                                                        // Attach the onclick event to the icon
+                                                                        document.getElementById("upload-icon").onclick = function() {
+                                                                            fileInput.click(); // Show the file input window
+                                                                        };
+                                                                </script>
                                                             </div>
                                                             <div class="form-group form-default">
-                                                                <input type="text" name="footer-email" class="form-control" disabled>
+                                                                <input type="text" name="fullname" class="form-control">
                                                                 <span class="form-bar"></span>
-                                                                <label class="float-label"><?php echo $user_data['email'];
-                                            ?></label>
+                                                                <label class="float-label"><?php echo "Name : ".$user_data['fullname'];?></label>
                                                             </div>
                                                             <div class="form-group form-default">
-                                                                <input type="text" name="footer-email" class="form-control" disabled>
+                                                                <input type="text" name="email" class="form-control">
                                                                 <span class="form-bar"></span>
-                                                                <label class="float-label"><?php echo $user_data['password'];
-                                            ?></label>
+                                                                <label class="float-label"><?php echo "Email :".$user_data['email'];?></label>
                                                             </div>
+                                                            
                                                             <div class="form-group form-default">
-                                                                <input type="text" name="footer-email" class="form-control" disabled>
+                                                                <input type="number" name="phone" class="form-control" >
                                                                 <span class="form-bar"></span>
-                                                                <label class="float-label"><?php echo $user_data['phonenumber'];
-                                            ?></label>
+                                                                <label class="float-label"><?php echo "phone : ".$user_data['phonenumber'];?></label>
                                                             <div class="form-group form-default">
-                                                                <input type="text" name="footer-email" class="form-control" disabled>
+                                                                <input type="number" name="nationalid" class="form-control">
                                                                 <span class="form-bar"></span>
-                                                                <label class="float-label"><?php echo $user_data['nationalid'];
-                                            ?></label>
+                                                                <label class="float-label"><?php echo "id : ".$user_data['nationalid'];?></label>
                                                             </div>
-                                                        
+                                                        <br>
+                                                            
+                                                        <button class="btn btn-primary waves-effect" data-type="inverse" data-animation-in="animated fadeIn" 
+                                                            style="margin-left:25%; margin-top:0px;" 
+                                                            data-animation-out="animated fadeOut" name="update-profile">Update Profile</button>
                                                         </form>
+                                                            
+                                                        <!-- <script>
+                                                            document.querySelector('#update-profile').addEventListener('submit', function(event) {
+                                                                // Perform form validation
+                                                                var nameField = document.querySelector('#fullname');
+                                                                var emailField = document.querySelector('#email');
+                                                                var phoneField = document.querySelector('#phone');
+                                                                var imageField = document.querySelector('#image');
+                                                                var nationalidField = document.querySelector('#nationalid');
+                                                                if ( nameField.value === '' &&
+                                                                     emailField.value ==='' &&
+                                                                     imageField.value ==='' &&
+                                                                     phoneField.value ===''&&
+                                                                     nationalidField ===''
+                                                                     ) {
+                                                                    // Display error message and stop form submission
+                                                                    alert('you havent updated anything mahn!!!');
+                                                                    
+                                                                    event.preventDefault(); // Stops form submission
+                                                                    return false; // Stops form submission
+                                                                }
+                                                                console.log("prevented");
+                                                                // Allow form submission if validation succeeds
+                                                                // return true;
+                                                            });
+                                                        </script> -->
+                                                        <?php
+                                                        
+
+                                                            // if(isset($_POST["update-profile"]) &&
+                                                            //  $_POST['fullname'] == '' &&
+                                                            //  $_POST['email'] == '' &&
+                                                            //  $_POST['phone'] == '' &&                                                            
+                                                            //  $_POST['nationalid'] == '' 
+                                                            //  ){   
+                                                                
+                                                            //     echo "
+                                                            //     <script>
+                                                            //     var label = document.getElementById('message');
+                                                            //     label.style.color = 'red';
+                                                            //     label.style.fontSize = '24px';
+                                                            //     label.textContent = 'Nothing has been updated 😂';                                                        
+                                                            
+                                                            //     var form = document.querySelector('#update-profile');
+                                                            //         form.addEventListener('submit', function(event) {
+                                                            //         event.preventDefault(); });
+                                                            //     </script>                                                                
+                                                            //     ";                                                       
+                                                            // }
+                                                            if (isset($_POST["update-profile"]) ) {
+                                                                
+                                                                if ($_POST['fullname'] == '') {
+                                                                    $name = $user_data['fullname'];
+                                                                }else if(isset($_POST['update-profile']) && $_POST['fullname'] != '' ){
+                                                                    $name = $_POST['fullname'];
+                                                                }
+                                                                if($_POST['email']){
+                                                                    $email = $user_data['email'];
+                                                                }else {
+                                                                    $email = $_POST['email'] ;      }
+                                                                if($_POST['nationalid']==''){
+                                                                    $id = $user_data['nationalid'];
+                                                                }else {
+                                                                    $id = $_POST['nationalid'];
+                                                                }
+                                                                if($_POST['phone']==''){
+                                                                    $phone = $user_data['phonenumber'];
+                                                                }else {
+                                                                    $phone = $_POST['phone'];
+                                                                }
+                                                                $filename = $_FILES["image"]["name"];
+                                                                $tempname = $_FILES["image"]["tmp_name"];                                                          
+                                                                $folder = "../image/".$filename;
+                                                            // upload with image
+                                                            echo "poasted";
+                                                                if (move_uploaded_file($tempname, $folder)) {
+                                                                    $statement="                                                                
+                                                                        UPDATE admin SET email='$email',
+                                                                                    fullname='$name',
+                                                                                    nationalid='$id'
+                                                                                    phonenumber='$phone',
+                                                                                    image='$folder',
+                                                                                    where email='{$_SESSION["user"]}'
+                                                                    ";
+                                                                    $user_query = mysqli_query($conn,$statement);
+                                                                    if ($user_query) {
+                                                                        echo "
+                                                                            <script>
+                                                                                var label = document.getElementById('message');
+                                                                                label.style.color = 'green';
+                                                                                label.style.fontSize = '24px';
+                                                                                label.textContent = 'Successfully updated😎';                                                        
+                                                                            
+                                                                                var form = document.querySelector('#update-profile');
+                                                                                    form.addEventListener('submit', function(event) {
+                                                                                    event.preventDefault(); });
+                                                                            </script>                                                                
+                                                                            ";                                                       
+                                                                }else {
+                                                                    $statement="                                                                
+                                                                        UPDATE admin SET email='$email',
+                                                                                    fullname='$name',
+                                                                                    nationalid='$id'
+                                                                                    phonenumber='$phone',                                                                                    
+                                                                                    where email='{$_SESSION["user"]}'
+                                                                    ";
+                                                                    $user_query = mysqli_query($conn,$statement);
+                                                                    if (mysqli_query_num_rows($user_query) > 0) {
+                                                                        echo "
+                                                                            <script>
+                                                                                var label = document.getElementById('message');
+                                                                                label.style.color = 'green';
+                                                                                label.style.fontSize = '24px';
+                                                                                label.textContent = 'Successfully updated😎';                                                        
+                                                                            
+                                                                                var form = document.querySelector('#update-profile');
+                                                                                    form.addEventListener('submit', function(event) {
+                                                                                    event.preventDefault(); });
+                                                                            </script>                                                                
+                                                                            ";                                                       
+                                                                    }
+
+                                                                }
+                                                            }  
+                                                                
+                                                            }
+
+                                                        ?>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button class="btn btn-primary waves-effect" data-type="inverse" data-animation-in="animated fadeIn" 
-                                            style="margin-left:25%; margin-top:0px;" 
-                                            data-animation-out="animated fadeOut">Update Profile</button>
+                                            <div class="card">
+                                                
+
                                                                  
                                                     </div>
                                                 </div>
