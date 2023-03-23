@@ -1,46 +1,5 @@
-<!-- php code for adding an event -->
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>WeCare</title>
-
-    <!-- Meta -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-    <meta name="keywords"
-        content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
-    <meta name="author" content="Codedthemes" />
-    <!-- Favicon icon -->
-
-    <!-- <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon"> -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
-    <!-- Required Fremwork -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap/css/bootstrap.min.css">
-    <!-- waves.css -->
-    <link rel="stylesheet" href="../assets/pages/waves/css/waves.min.css" type="text/css" media="all">
-    <!-- themify-icons line icon -->
-    <link rel="stylesheet" type="text/css" href="../assets/icon/themify-icons/themify-icons.css">
-    <!-- ico font -->
-    <link rel="stylesheet" type="text/css" href="../assets/icon/icofont/css/icofont.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" type="text/css" href="../assets/icon/font-awesome/css/font-awesome.min.css">
-    <!-- Notification.css -->
-    <link rel="stylesheet" type="text/css" href="../assets/pages/notification/notification.css">
-    <!-- Animate.css -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/animate.css/css/animate.css">
-    <!-- Style.css -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
-
-    <link rel="stylesheet" type="text/css" href="../assets/css/jquery.mCustomScrollbar.css">
-</head>
-
-<body>
-    <!-- Pre-loader start -->
-    <div class="theme-loader">
+<!-- Pre-loader start -->
+<!-- <div class="theme-loader">
         <div class="loader-track">
             <div class="preloader-wrapper">
                 <div class="spinner-layer spinner-blue">
@@ -91,23 +50,66 @@
                 </div>
             </div>
         </div>
-    </div>
-    <script>
-        console.log('');
-    </script>
-</body>
-
-</html>
-
-<!-- end of code for adding an event -->
-
+    </div> -->
 
 <?php
-
-$day = $_POST['day'];
-$year = $_POST['year'];
-$month = $_POST['month'];
+include("../../../Functions/connect.php");
+// $day = $_POST['day'];
+// $year = $_POST['year'];
+// $month = $_POST['month'];
+$event_datetime = $_POST['event_datetime'];
 $event_title = $_POST['event_title'];
 $event_description = $_POST['event_description'];
-echo "" . $day . " " . $year . " " . $month . " " . $event_title . " " . $event_description;
+// echo ($event_datetime . " " . $event_title . " " . $event_description);
+
+// prepare the SQL statement to insert the values into the database
+$stmt = $conn->prepare("INSERT INTO event_table (event_datetime, event_title, event_description) VALUES (?, ?, ?)");
+
+// bind the values to the SQL statement
+$stmt->bind_param("sss", $event_datetime, $event_title, $event_description);
+
+// execute the SQL statement
+if ($stmt->execute() === TRUE) {
+    echo "New record created successfully";
+    $stmt = $conn->prepare("SELECT * from event_table where event_datetime >= CURDATE() ORDER BY event_datetime ASC");
+    $stmt->execute();
+
+
+
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+
+?>
+<?php
+// establish database connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// select all strings with their datetime values from the database
+$sql = "SELECT string, datetime_value FROM table_name";
+
+$result = $conn->query($sql);
+
+// create an array to store the datetime values
+$datetime_values = array();
+
+// loop through the result set and add the datetime values to the array
+while ($row = $result->fetch_assoc()) {
+    $datetime_values[] = $row['datetime_value'];
+}
+
+// sort the datetime values in ascending order
+sort($datetime_values);
+
+// loop through the sorted datetime values and retrieve the corresponding strings
+foreach ($datetime_values as $datetime) {
+    $sql = "SELECT string FROM table_name WHERE datetime_value = '$datetime'";
+    $result = $conn->query($sql);
+    $row = $result->fetch_assoc();
+    $string = $row['string'];
+
+    // do something with the retrieved string, such as printing it to the screen
+    echo $string . "<br>";
+}
 ?>

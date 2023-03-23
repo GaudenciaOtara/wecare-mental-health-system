@@ -52,7 +52,6 @@ if (isset($_SESSION['user'])) {
 
     <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
     <link rel="stylesheet" href="assets/calender.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
 
@@ -457,65 +456,41 @@ if (isset($_SESSION['user'])) {
                                                         <div class="row">
                                                             <div class="col-sm-12">
                                                                 <div class="sub-title">WeCare Event Chart</div>
-                                                                <form id="my_form">
-                                                                    <div class="calender">
+                                                                <div class="calender">
+
+                                                                    <form action="./assets/addevent.php" method="post">
                                                                         <div class="buttons">
-                                                                            <button class="button" name="Add_event"
-                                                                                id="create" type="submit">Add
+                                                                            <button class="button" name="add_event">Add
                                                                                 Event</button>
-                                                                            <button class="button"
-                                                                                id="yearbutton">Year</button>
-                                                                            <button class="button">Month</button><br>
+
                                                                         </div>
+
                                                                         <div class="headers">
                                                                             <input type="text" placeholder="Event Title"
-                                                                                name="event_title" id="event_title"><br>
-                                                                        </div>
-                                                                        <div class="calendercontent">
-                                                                            <textarea name="" id="event_description"
-                                                                                cols="30" rows="10"
-                                                                                name="event_description"
-                                                                                placeholder="Event Description"></textarea>
+                                                                                name="event_title" required><br>
 
+                                                                        </div>
+                                                                        <input type="datetime-local"
+                                                                            name="event_datetime" id="" required>
+                                                                        <div class="calendercontent">
+                                                                            <textarea id="" cols="30" rows="10"
+                                                                                placeholder="Event Description"
+                                                                                name="event_description"
+                                                                                required></textarea>
                                                                             <div class="calendar">
                                                                                 <div class="calendar-header">
                                                                                     <span class="month-picker"
-                                                                                        id="month-picker"
-                                                                                        name="event_month"></span>
+                                                                                        id="month-picker">March</span>
                                                                                     <div class="year-picker">
                                                                                         <span class="year-change"
                                                                                             id="prev-year">
                                                                                             <pre><</pre>
                                                                                         </span>
-                                                                                        <span id="year" name=""></span>
-                                                                                        <input type="text" hidden
-                                                                                            name="event_year" value="">
+                                                                                        <span id="year">2022</span>
                                                                                         <span class="year-change"
                                                                                             id="next-year">
                                                                                             <pre>></pre>
                                                                                         </span>
-                                                                                        <!-- <script>
-                                                                                function getvalue(){
-                                                                                    return console.log(document.getElementById('next-year'));
-                                                                                }
-                                                                                
-
-
-                                                                                var spanElement = document.getElementById('next-year');
-                                                                                let newValue ; 
-                                                                                var observer = new MutationObserver(function (mutationsList , obsever) {
-                                                                                    for (var mutation of mutationsList){
-                                                                                        if (mutation.type === 'childList' && mutation.target === spanElement  ) {
-                                                                                             newValue = spanElement.textContent;
-
-                                                                                        }
-
-                                                                                    }
-                                                                                    
-                                                                                });
-                                                                                console.log(newValue)
-                                                                                observer.observe(spanElement , {attributes : true ,childList:true  , subtree : true});
-                                                                            </script> -->
                                                                                     </div>
                                                                                 </div>
 
@@ -528,181 +503,48 @@ if (isset($_SESSION['user'])) {
                                                                                         <div>Thu</div>
                                                                                         <div>Fri</div>
                                                                                         <div>Sat</div>
+
                                                                                     </div>
                                                                                     <div class="calendar-days"></div>
                                                                                 </div>
+
                                                                                 <div class="month-list"></div>
                                                                             </div>
+
+
+
                                                                         </div>
                                                                         <button class="button" id="create"
-                                                                            name="Add_event"
-                                                                            type="submit">CREATE</button>
+                                                                            name="add_event">CREATE</button>
                                                                         <br>
+                                                                </div>
+                                                                <br>
                                                                 </form>
-
-                                                                <!-- script  -->
-                                                                <script>
-                                                                    $(document).ready(function () {
-                                                                        // Attach a click event listener to the "create" button
-                                                                        $('#create').click(function () {
-                                                                            // Extract the ID of the clicked button
-                                                                            var day = $('button.clicked').attr('id');
-                                                                            // Extract other form data
-                                                                            var year = $('#year').text();
-                                                                            var month = $('#month-picker').text();
-                                                                            var event_description = $('#event_description').val();
-                                                                            var event_title = $('#event_title').val();
-                                                                            // Pass the form data and button ID to an AJAX code
-                                                                            $.ajax({
-                                                                                url: './assets/addevent.php',
-                                                                                data: {
-                                                                                    day: day,
-                                                                                    year: year,
-                                                                                    month: month,
-                                                                                    event_description: event_description,
-                                                                                    event_title: event_title
-                                                                                },
-                                                                                type: 'post',
-                                                                                success: function (response) {
-                                                                                    console.log(response);
-                                                                                    // Do something with the response
-                                                                                },
-                                                                                error: function (xhr, status, error) {
-                                                                                    console.log(error);
-                                                                                }
-                                                                            });
-                                                                        });
-                                                                        // Attach a click event listener to all the buttons in the form
-                                                                        $('#my_form button').click(function () {
-                                                                            // Remove the "clicked" class from all buttons
-                                                                            $('button.clicked').removeClass('clicked');
-                                                                            // Add the "clicked" class to the clicked button
-                                                                            $(this).addClass('clicked');
-                                                                        });
-                                                                    });
-                                                                </script>
-                                                                <!-- script -->
-
-
-                                                                <!-- js script to assign sppan elements to hidden divs for fomr processing -->
-                                                                <script>
-
-
-
-
-
-                                                                // var spanElement = document.getElementById('year');
-                                                                // spanElement.addEventListener('input' , function () {
-                                                                //     var updated_value = this.textContent;
-                                                                // })
-                                                                // console.log(spanElement.textContent);
-                                                                // function assignspantext(spanid , inputid) {
-                                                                //     document.getElementById(inputid).value = document.getElementById(spanid).textContent;
-                                                                // }
-                                                                </script>
-                                                                <!-- endd of js script -->
-                                                                <!-- script to post the form elements to a php file for d processing -->
-                                                                <!-- <script>
-
-                                                                        const month = document.querySelectorAll('.month-picker');
-
-
-                                                                        // Get all the buttons with class "my-button"
-                                                                        const buttons = document.querySelectorAll('.calendar-days');
-
-                                                                        // Loop through each button and add an event listener
-                                                                        buttons.forEach(button => {
-                                                                        button.addEventListener('click', () => {
-                                                                            Get the value of the clicked button
-                                                                            const date_value = button.textContent;
-                                                                            console.log(date_value);
-                                                                        });
-                                                                        });
-
-                                                                            $(document).ready(function() {
-                                                                                // Define the submit button click event
-                                                                                $('#create').click(function(e) {
-                                                                                    e.preventDefault(); // Prevent the form from submitting normally
-
-                                                                                    // Get the values of the elements
-                                                                                    var month = $('#year').text();
-                                                                                    var year = $('#month').text();
-                                                                                    var date_val = $('#label').text();
-                                                                                    var textareaVal = $('#event_description').val();
-                                                                                    var inputVal = $('#input').val();
-
-                                                                                    // Send the values to the PHP file using AJAX
-                                                                                    $.ajax({
-                                                                                    type: 'POST',
-                                                                                    url: 'process.php',
-                                                                                    data: {
-                                                                                        month: month,
-                                                                                        year: year,
-                                                                                        date_val: date_val,
-                                                                                        textareaVal: textareaVal,
-                                                                                        inputVal: inputVal
-                                                                                    },
-                                                                                    success: function(response) {
-                                                                                        // Handle the response from the PHP file
-                                                                                        console.log(response);
-                                                                                    }
-                                                                                    });
-                                                                                });
-                                                                                });
-
-                                                                    </script> -->
-                                                                <!-- end of script -->
-
-
-                                                                <!-- php code for adding an event -->
-                                                                <?php
-                                                                if (isset($_POST['Add_event'])) {
-                                                                    echo "  <script>
-                console.log(document.getElementById('month-picker').textContent);
-            </script>";
-
-
-                                                                }
-
-
-
-
-                                                                ?>
-
-
-                                                                <!-- end of code for adding an event -->
-
+                                                                <script src="assets/calender.js"></script>
 
 
                                                             </div>
-                                                            <br>
-
-                                                            <script src="assets/calender.js"></script>
-
-
-
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <!-- Notification card end -->
                                             </div>
-                                            <!-- Notification card end -->
+                                            <!-- Bootstrap modal end -->
                                         </div>
-                                        <!-- Bootstrap modal end -->
                                     </div>
+                                    <!-- Page body end -->
                                 </div>
-                                <!-- Page body end -->
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- Main-body end -->
+                    <!-- Main-body end -->
 
-                <div id="styleSelector">
+                    <div id="styleSelector">
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
     <!-- ======= Footer ======= -->
