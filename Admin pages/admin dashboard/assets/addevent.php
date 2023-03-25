@@ -71,8 +71,9 @@ $stmt->bind_param("sss", $event_datetime, $event_title, $event_description);
 // execute the SQL statement
 if ($stmt->execute() === TRUE) {
     echo "New record created successfully";
-    $stmt = $conn->prepare("SELECT * from event_table where event_datetime >= CURDATE() ORDER BY event_datetime ASC");
-    $stmt->execute();
+    echo (" <script>
+                location.replace('../index.php');
+            </script>");
 
 
 
@@ -84,7 +85,7 @@ if ($stmt->execute() === TRUE) {
 ?>
 <?php
 // establish database connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli("localhost", "lloyd", "1234", "wecare");
 
 // select all strings with their datetime values from the database
 $sql = "SELECT string, datetime_value FROM table_name";
