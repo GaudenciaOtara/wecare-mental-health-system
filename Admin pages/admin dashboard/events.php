@@ -1,19 +1,18 @@
-
 <?php
 session_start();
 // require '../Functions/connect.php';
-Require "../../Functions/connect.php";
+require "../../Functions/connect.php";
 
 
 // $connection=mysqli_query($stmt,$conn);
 
 
-if (isset($_SESSION['user'])){
+if (isset($_SESSION['user'])) {
 
-    $user_query = mysqli_query($conn,"select * from admin where email='{$_SESSION["user"]}'");
+    $user_query = mysqli_query($conn, "select * from admin where email='{$_SESSION["user"]}'");
     $user_data = mysqli_fetch_assoc($user_query);
 }
- 
+
 ?>
 
 <!DOCTYPE html>
@@ -21,13 +20,14 @@ if (isset($_SESSION['user'])){
 
 <head>
     <title>WeCare</title>
- 
+
     <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <meta name="keywords" content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
+    <meta name="keywords"
+        content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
     <meta name="author" content="Codedthemes" />
     <!-- Favicon icon -->
 
@@ -123,9 +123,11 @@ if (isset($_SESSION['user'])){
                             <div class="header-search">
                                 <div class="main-search morphsearch-search">
                                     <div class="input-group">
-                                        <span class="input-group-prepend search-close"><i class="ti-close input-group-text"></i></span>
+                                        <span class="input-group-prepend search-close"><i
+                                                class="ti-close input-group-text"></i></span>
                                         <input type="text" class="form-control" placeholder="Enter Keyword">
-                                        <span class="input-group-append search-btn"><i class="ti-search input-group-text"></i></span>
+                                        <span class="input-group-append search-btn"><i
+                                                class="ti-search input-group-text"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -141,7 +143,8 @@ if (isset($_SESSION['user'])){
                     <div class="navbar-container container-fluid">
                         <ul class="nav-left">
                             <li>
-                                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
+                                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a>
+                                </div>
                             </li>
                             <li>
                                 <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
@@ -162,30 +165,36 @@ if (isset($_SESSION['user'])){
                                     </li>
                                     <li class="waves-effect waves-light">
                                         <div class="media">
-                                            <img class="d-flex align-self-center img-radius" src="assets/images/avatar-2.jpg" alt="Generic placeholder image">
+                                            <img class="d-flex align-self-center img-radius"
+                                                src="assets/images/avatar-2.jpg" alt="Generic placeholder image">
                                             <div class="media-body">
                                                 <h5 class="notification-user">John Doe</h5>
-                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
+                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
+                                                    elit.</p>
                                                 <span class="notification-time">30 minutes ago</span>
                                             </div>
                                         </div>
                                     </li>
                                     <li class="waves-effect waves-light">
                                         <div class="media">
-                                            <img class="d-flex align-self-center img-radius" src="assets/images/avatar-4.jpg" alt="Generic placeholder image">
+                                            <img class="d-flex align-self-center img-radius"
+                                                src="assets/images/avatar-4.jpg" alt="Generic placeholder image">
                                             <div class="media-body">
                                                 <h5 class="notification-user">Joseph William</h5>
-                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
+                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
+                                                    elit.</p>
                                                 <span class="notification-time">30 minutes ago</span>
                                             </div>
                                         </div>
                                     </li>
                                     <li class="waves-effect waves-light">
                                         <div class="media">
-                                            <img class="d-flex align-self-center img-radius" src="assets/images/avatar-3.jpg" alt="Generic placeholder image">
+                                            <img class="d-flex align-self-center img-radius"
+                                                src="assets/images/avatar-3.jpg" alt="Generic placeholder image">
                                             <div class="media-body">
                                                 <h5 class="notification-user">Sara Soudein</h5>
-                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
+                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
+                                                    elit.</p>
                                                 <span class="notification-time">30 minutes ago</span>
                                             </div>
                                         </div>
@@ -195,8 +204,10 @@ if (isset($_SESSION['user'])){
                             <li class="user-profile header-notification">
                                 <a href="#!" class="waves-effect waves-light">
                                     <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                                    <span><?php echo $user_data['fullname'];
-                                            ?></span>
+                                    <span>
+                                        <?php echo $user_data['fullname'];
+                                        ?>
+                                    </span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
@@ -234,10 +245,13 @@ if (isset($_SESSION['user'])){
                         <div class="pcoded-inner-navbar main-menu">
                             <div class="">
                                 <div class="main-menu-header">
-                                    <img class="img-80 img-radius" src="assets/images/avatar-4.jpg" alt="User-Profile-Image">
+                                    <img class="img-80 img-radius" src="assets/images/avatar-4.jpg"
+                                        alt="User-Profile-Image">
                                     <div class="user-details">
-                                        <span id="more-details"><?php echo $user_data['fullname'];
-                                            ?><i class="fa fa-caret-down"></i></span>
+                                        <span id="more-details">
+                                            <?php echo $user_data['fullname'];
+                                            ?><i class="fa fa-caret-down"></i>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="main-menu-content">
@@ -245,7 +259,8 @@ if (isset($_SESSION['user'])){
                                         <li class="more-details">
                                             <a href="profile.php"><i class="ti-user"></i>View Profile</a>
                                             <a href="settings.php"><i class="ti-settings"></i>Settings</a>
-                                            <a href="auth-normal-sign-in.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
+                                            <a href="auth-normal-sign-in.html"><i
+                                                    class="ti-layout-sidebar-left"></i>Logout</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -255,7 +270,8 @@ if (isset($_SESSION['user'])){
                                     <div class="form-group form-primary">
                                         <input type="text" name="footer-email" class="form-control">
                                         <span class="form-bar"></span>
-                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Search Dashboard</label>
+                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Search
+                                            Dashboard</label>
                                     </div>
                                 </form>
                             </div>
@@ -385,7 +401,8 @@ if (isset($_SESSION['user'])){
                                         </li>
                                         <li class="">
                                             <a href="community.php" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-layout-sidebar-left"></i><b>S</b></span>
+                                                <span class="pcoded-micon"><i
+                                                        class="ti-layout-sidebar-left"></i><b>S</b></span>
                                                 <span class="pcoded-mtext">Community</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
@@ -411,7 +428,8 @@ if (isset($_SESSION['user'])){
                                             <li class="breadcrumb-item">
                                                 <a href="index.html"> <i class="fa fa-home"></i> </a>
                                             </li>
-                                            <li class="breadcrumb-item"><a href="publishedarticles.php">Information Page</a>
+                                            <li class="breadcrumb-item"><a href="publishedarticles.php">Information
+                                                    Page</a>
                                             </li>
                                             <li class="breadcrumb-item"><a href="events.php">Calender and Events</a>
                                             </li>
@@ -438,62 +456,73 @@ if (isset($_SESSION['user'])){
                                                         <div class="row">
                                                             <div class="col-sm-12">
                                                                 <div class="sub-title">WeCare Event Chart</div>
-                                                                
-                                                            
                                                                 <div class="calender">
-        <div class="buttons">
-            <button class="button">Add Event</button>  
-            <button class="button" id="yearbutton">Year</button> 
-            <button class="button">Month</button><br>
-        </div>
-        <div class="headers">
-            <input type="text" placeholder="Event Title"><br>
-        </div>
-         <div class="calendercontent">
-        <textarea name="" id="" cols="30" rows="10" placeholder="Event Description"></textarea>
 
-        <div class="calendar">
-<div class="calendar-header">
-    <span class="month-picker" id="month-picker">March</span>
-    <div class="year-picker">
-        <span class="year-change" id="prev-year">
-            <pre><</pre>
-        </span>
-        <span id="year">2022</span>
-        <span class="year-change" id="next-year">
-            <pre>></pre>
-        </span>
-    </div>
-</div>
+                                                                    <form action="./assets/addevent.php" method="post">
+                                                                        <div class="buttons">
+                                                                            <button class="button" name="add_event">Add
+                                                                                Event</button>
 
-<div class="calendar-body">
-<div class="calendar-week-day">
-    <div>Sun</div>
-    <div>Mon</div>
-    <div>Tue</div>
-    <div>Wed</div>
-    <div>Thu</div>
-    <div>Fri</div>
-    <div>Sat</div>
-   
-</div>
-<div class="calendar-days"></div>
-</div>
+                                                                        </div>
 
-<div class="month-list"></div>
-</div>
+                                                                        <div class="headers">
+                                                                            <input type="text" placeholder="Event Title"
+                                                                                name="event_title" required><br>
+
+                                                                        </div>
+                                                                        <input type="datetime-local"
+                                                                            name="event_datetime" id="" required>
+                                                                        <div class="calendercontent">
+                                                                            <textarea id="" cols="30" rows="10"
+                                                                                placeholder="Event Description"
+                                                                                name="event_description"
+                                                                                required></textarea>
+                                                                            <div class="calendar">
+                                                                                <div class="calendar-header">
+                                                                                    <span class="month-picker"
+                                                                                        id="month-picker">March</span>
+                                                                                    <div class="year-picker">
+                                                                                        <span class="year-change"
+                                                                                            id="prev-year">
+                                                                                            <pre><</pre>
+                                                                                        </span>
+                                                                                        <span id="year">2022</span>
+                                                                                        <span class="year-change"
+                                                                                            id="next-year">
+                                                                                            <pre>></pre>
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="calendar-body">
+                                                                                    <div class="calendar-week-day">
+                                                                                        <div>Sun</div>
+                                                                                        <div>Mon</div>
+                                                                                        <div>Tue</div>
+                                                                                        <div>Wed</div>
+                                                                                        <div>Thu</div>
+                                                                                        <div>Fri</div>
+                                                                                        <div>Sat</div>
+
+                                                                                    </div>
+                                                                                    <div class="calendar-days"></div>
+                                                                                </div>
+
+                                                                                <div class="month-list"></div>
+                                                                            </div>
 
 
-        
-         </div>
-         <button class="button" id="create">CREATE</button>
-<br>
-    </div>
-<br>
 
-<script src="assets/calender.js"></script>
-                                                                 
-                                                           
+                                                                        </div>
+                                                                        <button class="button" id="create"
+                                                                            name="add_event">CREATE</button>
+                                                                        <br>
+                                                                </div>
+                                                                <br>
+                                                                </form>
+                                                                <script src="assets/calender.js"></script>
+
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -518,13 +547,13 @@ if (isset($_SESSION['user'])){
         </div>
     </div>
 
-     <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-    <div class="copyright">
-      &copy; Copyright <strong><span>WeCare</span></strong>. All Rights Reserved
-    </div>
-     
-  </footer><!-- End Footer -->
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+        <div class="copyright">
+            &copy; Copyright <strong><span>WeCare</span></strong>. All Rights Reserved
+        </div>
+
+    </footer><!-- End Footer -->
     <!-- Required Jquery -->
     <script type="text/javascript" src="assets/js/jquery/jquery.min.js "></script>
     <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js "></script>

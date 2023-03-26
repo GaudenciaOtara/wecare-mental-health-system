@@ -631,31 +631,41 @@ if (isset($_SESSION['user'])){
                                                                 $tempname = $_FILES["image"]["tmp_name"];                                                          
                                                                 $folder = "../image/".$filename;
                                                             // upload with image
-                                                            echo "poasted";
+                                                                echo $name;          
                                                                 if (move_uploaded_file($tempname, $folder)) {
+                                                                    echo $name;          
+                                                                    
                                                                     $statement="                                                                
                                                                         UPDATE admin SET email='$email',
                                                                                     fullname='$name',
                                                                                     nationalid='$id'
                                                                                     phonenumber='$phone',
-                                                                                    image='$folder',
+                                                                                    image='$filename',
                                                                                     where email='{$_SESSION["user"]}'
                                                                     ";
                                                                     $user_query = mysqli_query($conn,$statement);
-                                                                    if ($user_query) {
-                                                                        echo "
-                                                                            <script>
-                                                                                var label = document.getElementById('message');
-                                                                                label.style.color = 'green';
-                                                                                label.style.fontSize = '24px';
-                                                                                label.textContent = 'Successfully updated😎';                                                        
+                                                                //     if ($user_query) {
+                                                                //         echo "
+                                                                //             <script>
+                                                                //                 var label = document.getElementById('message');
+                                                                //                 label.style.color = 'green';
+                                                                //                 label.style.fontSize = '24px';
+                                                                //                 label.textContent = 'Successfully updated😎';                                                        
                                                                             
-                                                                                var form = document.querySelector('#update-profile');
-                                                                                    form.addEventListener('submit', function(event) {
-                                                                                    event.preventDefault(); });
-                                                                            </script>                                                                
-                                                                            ";                                                       
-                                                                }else {
+                                                                //                 var form = document.querySelector('#update-profile');
+                                                                //                     form.addEventListener('submit', function(event) {
+                                                                //                     event.preventDefault(); });
+                                                                //             </script>                                                                
+                                                                //             ";                                                       
+                                                                // }
+                                                                // else {
+                                                                //     echo $name; 
+                                                                // }
+
+                                                                
+                                                            }  
+                                                            else if (!move_uploaded_file($tempname, $folder) )                                                                   # code...
+                                                                 {
                                                                     $statement="                                                                
                                                                         UPDATE admin SET email='$email',
                                                                                     fullname='$name',
@@ -663,6 +673,7 @@ if (isset($_SESSION['user'])){
                                                                                     phonenumber='$phone',                                                                                    
                                                                                     where email='{$_SESSION["user"]}'
                                                                     ";
+                                                                    echo "poasted";
                                                                     $user_query = mysqli_query($conn,$statement);
                                                                     if (mysqli_query_num_rows($user_query) > 0) {
                                                                         echo "
@@ -680,7 +691,6 @@ if (isset($_SESSION['user'])){
                                                                     }
 
                                                                 }
-                                                            }  
                                                                 
                                                             }
 
