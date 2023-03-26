@@ -1,42 +1,55 @@
 
 <?php
-
 include '../Functions/connect.php';
 if (isset($_POST['submit'])){
-  $email=$_POST['email'];
-  $username=$_POST['username'];
-  $nationalid=$_POST['nationalid'];
-  $phonenumber=$_POST['phonenumber'];
-  $password=$_POST['password'];
-  $confirmpassword=$_POST['confirmpassword'];
-  $terms=$_POST['terms'];
+  $email = $_POST['email'];
+  $username = $_POST['username'];
+  $phonenumber = $_POST['phonenumber'];
+  $password = $_POST['password'];
+  $nationalid = $_POST['nationalid'];
+  // $lastname = $_POST['lastname'];
+  // $address = $_POST['address'];
+  $confirmpassword = $_POST['confirmpassword'];
+  $terms = $_POST['terms'];
 
-// $SELECT= "SELECT email from test Where email = ? Limit 1";
-// $INSERT= "INSERT Into test "
-  
   if ($conn->connect_error){
-      die('Connection Failed!' .$conn->connect_error);
+    die('Connection Failed!' .$conn->connect_error);
   }
   else{
-      $SELECT= "SELECT email from test Where email = ? Limit 1";
-      $statement= $conn->prepare("Insert Into community(email,username,nationalid,phonenumber,password,confirmpassword,terms) 
-      values(?,?,?,?,?,?,?)");
-      $statement->bind_param("ssiisss",$email,$username,$nationalid,$phonenumber,$password,$confirmpassword,$terms);
+    // Check for existing email and phone number
+    $check_query = "SELECT * FROM community WHERE email='$email' OR phonenumber='$phonenumber' OR nationalid='$nationalid'";
+    $check_result = mysqli_query($conn, $check_query);
+
+    if (mysqli_num_rows($check_result) > 0) {
+      // Display error message if email or phone number already exists
+      if ($row = mysqli_fetch_assoc($check_result)) {
+        if ($row['email'] == $email) {
+          echo "<p style='color:red;'>Email already exists</p>";
+        }
+        if ($row['phonenumber'] == $phonenumber) {
+          echo "<p style='color:red;'>Phone number already exists</p>";
+        }
+        if ($row['nationalid'] == $nationalid) {
+          echo "<p style='color:red;'>National ID is already registered!</p>";
+        }
+      }
+    }
+    else {
+      // Insert new patient details into database
+      $statement = $conn->prepare("INSERT INTO community(email,username,phonenumber,password,confirmpassword,terms,nationalid) VALUES(?,?,?,?,?,?,?)");
+      $statement->bind_param("ssisssi",$email,$username,$phonenumber,$password,$confirmpassword,$terms ,$nationalid);
       $statement->execute();
-      // echo"Succesfully Registered!";
+      echo "<p style='color:green;'>Successfully Registered!</p>";
       $statement->close();
       $conn->close();
-      // echo '.$email';
-    echo "
-    <script>
-      location.replace('communitylogin.php');
-    </script>
-    ";
-
+      echo "
+        <script>
+          location.replace('communitylogin.php');
+        </script>
+      ";
+    }
   }
 }
-
-
 ?>
 <!DOCTYPE html>
  <html lang="en">
