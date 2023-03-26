@@ -33,7 +33,9 @@ generateCalendar = (month, year) => {
     let first_day = new Date(year, month, 1)
 
     for (let i = 0; i <= days_of_month[month] + first_day.getDay() - 1; i++) {
-        let day = document.createElement('button')
+        let day = document.createElement('button');
+        day.id = "day"+i;
+        day.type = "button";
         if (i >= first_day.getDay()) {
             day.classList.add('calendar-day-hover')
             day.innerHTML = i - first_day.getDay() + 1
