@@ -11,6 +11,8 @@ if (isset($_SESSION['user'])){
 
     $user_query = mysqli_query($conn,"select * from admin where email='{$_SESSION["user"]}'");
     $user_data = mysqli_fetch_assoc($user_query);
+    $doctors_query = mysqli_query($conn,"select * from doctor");   
+
 }
  
 ?>
@@ -441,8 +443,8 @@ if (isset($_SESSION['user'])){
                                                                  <!-- Basic table card start -->
                                         <div class="card">
                                             <div class="card-header">
-                                                <h5>Basic Table</h5>
-                                                <span>use class <code>table</code> inside table element</span>
+                                                <h5>Doctor Users Table</h5>
+                                                <!-- <span>use class <code>table</code> inside table element</span> -->
                                                 <div class="card-header-right">
                                                     <ul class="list-unstyled card-option">
                                                         <li><i class="fa fa fa-wrench open-card-option"></i></li>
@@ -459,30 +461,44 @@ if (isset($_SESSION['user'])){
                                                         <thead>
                                                             <tr>
                                                                 <th>#</th>
-                                                                <th>First Name</th>
-                                                                <th>Last Name</th>
-                                                                <th>Username</th>
+                                                                <th>Full Name</th>
+                                                                <th>Phone Number</th>
+                                                                <th>Email</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                        <?php
+                                                             $number = 1;
+                                                            if(mysqli_num_rows($doctors_query) > 0){
+                                                                                                        
+                                                                while ($patients_data = mysqli_fetch_assoc($doctors_query)) {                                                                                                                     
+                                                            ?> 
                                                             <tr>
-                                                                <th scope="row">1</th>
-                                                                <td>Mark</td>
-                                                                <td>Otto</td>
-                                                                <td>@mdo</td>
+                                                                <th scope="row"> <?php echo $number ;?> </th>
+                                                                <td><?php echo $patients_data['fullname'] ;?></td>
+                                                                <td><?php echo $patients_data['phonenumber'] ;?></td>
+                                                                <td><?php echo $patients_data['email'] ;?></td>
                                                             </tr>
+                                                            <?php                                                            
+                                                            $number = $number + 1;
+                                                            ?>
+                                                            <?php
+                                                                }
+
+                                                            }
+                                                            else  if(mysqli_num_rows($query_voters) <= 0){
+                                                                ?>
+                                                     
                                                             <tr>
-                                                                <th scope="row">2</th>
-                                                                <td>Jacob</td>
-                                                                <td>Thornton</td>
-                                                                <td>@fat</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">3</th>
-                                                                <td>Larry</td>
-                                                                <td>the Bird</td>
-                                                                <td>@twitter</td>
-                                                            </tr>
+                                                                    <th scope="row"></th>
+                                                                    <td>empty</td>
+                                                                    <td>empty</td>
+                                                                    <td>empty</td>
+                                                                    <td>empty</td>
+                                                                </tr>
+                                                                <?php
+                                                                    }
+                                                                ?>
                                                         </tbody>
                                                     </table>
                                                 </div>

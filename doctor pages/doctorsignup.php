@@ -88,7 +88,7 @@ if (isset($_POST['submit'])){
 
       <Label for="Terms">
     <input type="checkbox" class="checkbox" required name="terms">
-    <a href="#">
+    <a href="../Patient Pages/terms.php">
      <p class="terms">I agree to all terms and conditions</p> </a> 
     </Label>
     <button name="submit">SUBMIT</button><br>

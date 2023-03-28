@@ -11,6 +11,8 @@ if (isset($_SESSION['user'])){
 
     $user_query = mysqli_query($conn,"select * from admin where email='{$_SESSION["user"]}'");
     $user_data = mysqli_fetch_assoc($user_query);
+    $patients_query = mysqli_query($conn,"select * from community");   
+
 }
  
 ?>
@@ -464,24 +466,40 @@ if (isset($_SESSION['user'])){
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                          
+                                                            <?php
+                                                             $number = 1;
+                                                            if(mysqli_num_rows($patients_query) > 0){
+                                                                                                        
+                                                                while ($patients_data = mysqli_fetch_assoc($patients_query)) {                                                                                                                     
+                                                            ?> 
                                                             <tr>
-                                                                <th scope="row">1</th>
-                                                                <td>Mark</td>
-                                                                <td>Otto</td>
-                                                                <td>@mdo</td>
+                                                                <th scope="row"> <?php echo $number ;?> </th>
+                                                                <td><?php echo $patients_data['username'] ;?></td>
+                                                                <td><?php echo $patients_data['email'] ;?></td>
+                                                                <td><?php echo $patients_data['phonenumber'] ;?></td>
+
                                                             </tr>
-                                                            <tr>
-                                                                <th scope="row">2</th>
-                                                                <td>Jacob</td>
-                                                                <td>Thornton</td>
-                                                                <td>@fat</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">3</th>
-                                                                <td>Larry</td>
-                                                                <td>the Bird</td>
-                                                                <td>@twitter</td>
-                                                            </tr>
+                                                            <?php                                                            
+                                                            $number = $number + 1;
+                                                            ?>
+                                                            <?php
+                                                                }
+
+                                                            }
+                                                            else  if(mysqli_num_rows($query_voters) <= 0){
+                                                                ?>
+                                                                <tr>
+                                                                    <th scope="row"></th>
+                                                                    <td>empty</td>
+                                                                    <td>empty</td>
+                                                                    <td>empty</td>
+                                                                    <td>empty</td>
+                                                                </tr>
+                                                                <?php
+                                                                    }
+                                                                ?>
+                                                        
                                                         </tbody>
                                                     </table>
                                                 </div>

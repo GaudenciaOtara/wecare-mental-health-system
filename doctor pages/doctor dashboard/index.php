@@ -2,6 +2,7 @@
 session_start();
 // require '../Functions/connect.php';
 Require "../../Functions/connect.php";
+Require "../Functions/check_session.php";
 
 if (isset($_SESSION['user'])){
 
@@ -202,7 +203,7 @@ if (isset($_SESSION['user'])){
                                         </a>
                                     </li>
                                     <li class="waves-effect waves-light">
-                                        <a href="auth-normal-sign-in.html">
+                                        <a href="../Functions/logout.php">
                                             <i class="ti-layout-sidebar-left"></i> Logout
                                         </a>
                                     </li>
@@ -231,7 +232,7 @@ if (isset($_SESSION['user'])){
                                         <li class="more-details">
                                             <a href="profile.php"><i class="ti-user"></i>View Profile</a>
                                             <a href="settings.php"><i class="ti-settings"></i>Settings</a>
-                                            <a href="auth-normal-sign-in.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
+                                            <a href="../Functions/logout.php"><i class="ti-layout-sidebar-left"></i>Logout</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -443,7 +444,7 @@ if (isset($_SESSION['user'])){
     }
     else {
         echo "<script>
-                location.replace('../adminlogin.php');
+                location.replace('../doctorlogin.php');
             </script>";
     }
  

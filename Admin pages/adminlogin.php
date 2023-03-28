@@ -48,13 +48,7 @@ if (isset($_POST['submit'])){
      >
     </div>
     
-    <div class="password">
-    <input type="password" placeholder="Confirm Password" id="cpassword" name="confirmpassword">
-    <img src="../css/images/eye-close.png" alt=""
-    onclick= "show('ceyeicon' , 'cpassword')"
-    width="20px" 
-    height="25px" id="ceyeicon">
-    </div>
+    
       <button name="submit">SUBMIT</button><br>
      <p><a href="#">Forgot Password?</a></p> 
       <p>Don't have an acoount? <a href="adminsignup.php">Signup</a></p>

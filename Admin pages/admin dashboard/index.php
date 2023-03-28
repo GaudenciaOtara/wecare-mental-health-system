@@ -2,6 +2,8 @@
 session_start();
 // require '../Functions/connect.php';
 require "../../Functions/connect.php";
+Require "../Functions/check_session.php";
+
 
 if (isset($_SESSION['user'])) {
 
@@ -212,7 +214,7 @@ if (isset($_SESSION['user'])) {
                                             </a>
                                         </li>
                                         <li class="waves-effect waves-light">
-                                            <a href="auth-normal-sign-in.html">
+                                            <a href="../Functions/logout.php ">
                                                 <i class="ti-layout-sidebar-left"></i> Logout
                                             </a>
                                         </li>
@@ -245,7 +247,7 @@ if (isset($_SESSION['user'])) {
                                             <li class="more-details">
                                                 <a href="profile.php"><i class="ti-user"></i>View Profile</a>
                                                 <a href="settings.php"><i class="ti-settings"></i>Settings</a>
-                                                <a href="auth-normal-sign-in.html"><i
+                                                <a href="../Functions/logout.php "><i
                                                         class="ti-layout-sidebar-left"></i>Logout</a>
                                             </li>
                                         </ul>
@@ -595,7 +597,7 @@ if (isset($_SESSION['user'])) {
                                                         <div class="card-block">
                                                             <div class="table-responsive">
                                                                 <?php
-                                                                $conn = new mysqli("localhost", "lloyd", "1234", "wecare");
+                                                                $conn = new mysqli("localhost", "root", "1234", "wecare");
                                                                 $stmt = $conn->prepare("SELECT * from event_table where event_datetime >= CURDATE() ORDER BY event_datetime ASC");
                                                                 $stmt->execute();
                                                                 $result = $stmt->get_result();
@@ -610,16 +612,13 @@ if (isset($_SESSION['user'])) {
                                                                                             <h6>
                                                                                                 <?php echo $row['event_title']; ?>
                                                                                             </h6>
-                                                                                            <p class="text-muted m-b-0">
-                                                                                                <?php echo $row['event_description']; ?>
-                                                                                            </p>
-                                                                                        </div>
+                                                                                       
                                                                                     </div>
                                                                                 </td>
                                                                                 <td class="text-right">
                                                                                     <h6 class="f-w-700">
-                                                                                        <?php echo $row['event_datetime']; ?><i
-                                                                                            class="fas fa-level-down-alt text-c-red m-l-10"></i>
+                                                                                        <?php echo $row['event_datetime']; ?>
+                                                                                        <!-- <i class="fas fa-level-down-alt text-c-red m-l-10"></i> -->
                                                                                     </h6>
                                                                                 </td>
                                                                             </tr>
