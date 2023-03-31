@@ -84,33 +84,33 @@ if ($stmt->execute() === TRUE) {
 
 ?>
 <?php
-// establish database connection
-$conn = new mysqli("localhost", "lloyd", "1234", "wecare");
+// // establish database connection
+// $conn = new mysqli("localhost", "lloyd", "1234", "wecare");
 
-// select all strings with their datetime values from the database
-$sql = "SELECT string, datetime_value FROM table_name";
+// // select all strings with their datetime values from the database
+// $sql = "SELECT string, datetime_value FROM table_name";
 
-$result = $conn->query($sql);
+// $result = $conn->query($sql);
 
-// create an array to store the datetime values
-$datetime_values = array();
+// // create an array to store the datetime values
+// $datetime_values = array();
 
-// loop through the result set and add the datetime values to the array
-while ($row = $result->fetch_assoc()) {
-    $datetime_values[] = $row['datetime_value'];
-}
+// // loop through the result set and add the datetime values to the array
+// while ($row = $result->fetch_assoc()) {
+//     $datetime_values[] = $row['datetime_value'];
+// }
 
-// sort the datetime values in ascending order
-sort($datetime_values);
+// // sort the datetime values in ascending order
+// sort($datetime_values);
 
-// loop through the sorted datetime values and retrieve the corresponding strings
-foreach ($datetime_values as $datetime) {
-    $sql = "SELECT string FROM table_name WHERE datetime_value = '$datetime'";
-    $result = $conn->query($sql);
-    $row = $result->fetch_assoc();
-    $string = $row['string'];
+// // loop through the sorted datetime values and retrieve the corresponding strings
+// foreach ($datetime_values as $datetime) {
+//     $sql = "SELECT string FROM table_name WHERE datetime_value = '$datetime'";
+//     $result = $conn->query($sql);
+//     $row = $result->fetch_assoc();
+//     $string = $row['string'];
 
-    // do something with the retrieved string, such as printing it to the screen
-    echo $string . "<br>";
-}
+//     // do something with the retrieved string, such as printing it to the screen
+//     echo $string . "<br>";
+// }
 ?>
