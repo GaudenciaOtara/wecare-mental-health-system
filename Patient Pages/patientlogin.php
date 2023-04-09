@@ -37,7 +37,7 @@ if (isset($_POST['submit'])){
 
   <div class="container">
     <div class="form">
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post"    >
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
     <h2>Log In</h2>
       <input type="email" placeholder="Email" required name="email"><br>
       <div class="password">

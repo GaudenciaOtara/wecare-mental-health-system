@@ -1,45 +1,53 @@
-
 <?php
-
 include '../Functions/connect.php';
 if (isset($_POST['submit'])){
-  $email=$_POST['email'];
-  $username=$_POST['username'];
-  $phonenumber=$_POST['phonenumber'];
-  $password=$_POST['password'];
+  $email = $_POST['email'];
+  $username = $_POST['username'];
+  $phonenumber = $_POST['phonenumber'];
+  $password = $_POST['password'];
   $firstname = $_POST['firstname'];
   $lastname = $_POST['lastname'];
-  $address= $_POST['address'];
-  $confirmpassword=$_POST['confirmpassword'];
-  $terms=$_POST['terms'];
+  $address = $_POST['address'];
+  $confirmpassword = $_POST['confirmpassword'];
+  $terms = $_POST['terms'];
 
-// $SELECT= "SELECT email from test Where email = ? Limit 1";
-// $INSERT= "INSERT Into test "
-  
   if ($conn->connect_error){
-      die('Connection Failed!' .$conn->connect_error);
+    die('Connection Failed!' .$conn->connect_error);
   }
   else{
-      // $SELECT= "SELECT email from test Where email = ? Limit 1";
-      $statement= $conn->prepare("Insert Into patient(email,username,phonenumber,password,confirmpassword,terms,firstname, lastname ,adress) 
-      values(?,?,?,?,?,?,?,?,?)");
+    // Check for existing email and phone number
+    $check_query = "SELECT * FROM patient WHERE email='$email' OR phonenumber='$phonenumber'";
+    $check_result = mysqli_query($conn, $check_query);
+
+    if (mysqli_num_rows($check_result) > 0) {
+      // Display error message if email or phone number already exists
+      if ($row = mysqli_fetch_assoc($check_result)) {
+        if ($row['email'] == $email) {
+          echo "<p style='color:red;'>Email already exists</p>";
+        }
+        if ($row['phonenumber'] == $phonenumber) {
+          echo "<p style='color:red;'>Phone number already exists</p>";
+        }
+      }
+    }
+    else {
+      // Insert new patient details into database
+      $statement = $conn->prepare("INSERT INTO patient(email,username,phonenumber,password,confirmpassword,terms,firstname, lastname ,adress) VALUES(?,?,?,?,?,?,?,?,?)");
       $statement->bind_param("ssissssss",$email,$username,$phonenumber,$password,$confirmpassword,$terms ,$firstname , $lastname ,$address);
       $statement->execute();
-      // echo"Succesfully Registered!";
+      echo "<p style='color:green;'>Successfully Registered!</p>";
       $statement->close();
       $conn->close();
-      // echo '.$email';
-    echo "
-    <script>
-      location.replace('patientlogin.php');
-    </script>
-    ";
-
+      echo "
+        <script>
+          location.replace('patientlogin.php');
+        </script>
+      ";
+    }
   }
 }
-
-
 ?>
+
 <!DOCTYPE html>
  <html lang="en">
  <head>
@@ -83,7 +91,7 @@ if (isset($_POST['submit'])){
 
       <Label for="Terms">
     <input type="checkbox" class="checkbox" required name="terms">
-    <a href="#">
+    <a href="terms.php">
      <p class="terms">I agree to all terms and conditions</p> </a> 
     </Label>
     <button name="submit">SUBMIT</button><br>
